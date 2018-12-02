@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProviderServiceFactory {
     private static ProviderService INSTANCE = null;
 
-    public synchronized static ProviderService getInstance() {
+    public synchronized static ProviderService getProviderService() {
         if (INSTANCE == null) INSTANCE = new ProviderService(createApi());
         return INSTANCE;
     }
