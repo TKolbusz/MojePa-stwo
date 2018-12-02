@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
+import com.tkolbusz.mojepastwo.di.ApplicationComponent;
+import com.tkolbusz.mojepastwo.di.DaggerApplicationComponent;
 import com.tkolbusz.mojepastwo.search.SearchView;
 
 import java.lang.reflect.InvocationTargetException;
@@ -21,10 +23,11 @@ public class MainActivity extends AppCompatActivity implements IMainDisplay {
     private RecyclerView companiesListView;
     private ViewGroup container;
     private List<? extends BaseView> viewCache = new ArrayList<>();
-
+    private ApplicationComponent applicationComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.applicationComponent = DaggerApplicationComponent.create();
         this.container = new FrameLayout(this);
         setContentView(this.container);
         displayDefaultView();
@@ -60,6 +63,11 @@ public class MainActivity extends AppCompatActivity implements IMainDisplay {
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public ApplicationComponent getComponent() {
+        return applicationComponent;
     }
 
     @Override

@@ -51,4 +51,19 @@ public class Company {
     public List<Management> getManagement() {
         return management;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Company company = (Company) o;
+
+        return krsNumber != null ? krsNumber.equals(company.krsNumber) : company.krsNumber == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return krsNumber != null ? krsNumber.hashCode() : 0;
+    }
 }

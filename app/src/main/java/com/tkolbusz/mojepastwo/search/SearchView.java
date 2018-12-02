@@ -1,5 +1,6 @@
 package com.tkolbusz.mojepastwo.search;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.widget.Toolbar;
@@ -9,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tkolbusz.domain.exception.ConnectionException;
 import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
-import com.tkolbusz.mojepastwo.MojePanstwoApplication;
 import com.tkolbusz.mojepastwo.R;
 import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
@@ -29,7 +29,7 @@ public class SearchView extends BaseView {
 
     public SearchView(@NotNull IMainDisplay mainDisplay) {
         super(mainDisplay);
-        this.controller = MojePanstwoApplication.getComponent(mainDisplay.getContext()).createSearchController();
+        this.controller = mainDisplay.getComponent().createSearchController();
         setController(this.controller);
         LayoutInflater.from(mainDisplay.getContext()).inflate(R.layout.search_view, this, true);
         toolbar = findViewById(R.id.search_view_toolbar);
@@ -60,7 +60,10 @@ public class SearchView extends BaseView {
     }
 
     public void displayCompanies(List<Company> companies) {
+        // prevent weird scroll to new item
+        Parcelable recyclerViewState = companiesListView.getLayoutManager().onSaveInstanceState();
         adapter.setData(companies);
+        companiesListView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
     }
 
     public void displayError(Throwable error) {
