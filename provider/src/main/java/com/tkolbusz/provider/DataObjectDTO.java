@@ -30,9 +30,9 @@ class DataObjectDTO {
     @SerializedName("score")
     @Expose
     private Double score;
-    @SerializedName("dataDTO")
+    @SerializedName("data")
     @Expose
-    private DataDTO dataDTO;
+    private DataDTO data;
 
     public String getId() {
         return id;
@@ -99,11 +99,11 @@ class DataObjectDTO {
     }
 
     public DataDTO getDataDTO() {
-        return dataDTO;
+        return data;
     }
 
     public void setDataDTO(DataDTO dataDTO) {
-        this.dataDTO = dataDTO;
+        this.data = dataDTO;
     }
 
 }

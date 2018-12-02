@@ -8,25 +8,25 @@ import java.util.List;
 
 class DataResponseDTO {
 
-    @SerializedName("DataObjectDTO")
+    @SerializedName("Dataobject")
     @Expose
-    private List<DataObjectDTO> dataObjectDTO = null;
+    private List<DataObjectDTO> dataObject;
     @SerializedName("Count")
     @Expose
     private Integer count;
     @SerializedName("Took")
     @Expose
     private Integer took;
-    @SerializedName("LinksDTO")
+    @SerializedName("Links")
     @Expose
-    private LinksDTO linksDTO;
+    private LinksDTO links;
 
     public List<DataObjectDTO> getDataObjectDTO() {
-        return dataObjectDTO;
+        return dataObject;
     }
 
-    public void setDataObjectDTO(List<DataObjectDTO> dataObjectDTO) {
-        this.dataObjectDTO = dataObjectDTO;
+    public void setDataObjectDTO(List<DataObjectDTO> dataObject) {
+        this.dataObject = dataObject;
     }
 
     public Integer getCount() {
@@ -46,11 +46,11 @@ class DataResponseDTO {
     }
 
     public LinksDTO getLinksDTO() {
-        return linksDTO;
+        return links;
     }
 
-    public void setLinksDTO(LinksDTO linksDTO) {
-        this.linksDTO = linksDTO;
+    public void setLinksDTO(LinksDTO links) {
+        this.links = links;
     }
 
 }

@@ -1,5 +1,16 @@
 package com.tkolbusz.provider;
 
-public class ProviderServiceTest {
+import org.junit.Test;
 
+import java.util.List;
+
+import static junit.framework.TestCase.assertTrue;
+
+public class ProviderServiceTest {
+    @Test
+    public void getCompanies() throws Exception {
+        ProviderService providerService = ProviderServiceFactory.getInstance();
+        List<String> orlen = providerService.getCompanies("Orlen");
+        assertTrue(orlen.size() > 0);
+    }
 }
