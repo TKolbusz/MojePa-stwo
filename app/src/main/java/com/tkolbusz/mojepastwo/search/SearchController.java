@@ -1,7 +1,5 @@
 package com.tkolbusz.mojepastwo.search;
 
-import android.text.TextUtils;
-
 import com.tkolbusz.domain.command.companies.SearchCompaniesCommand;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.mojepastwo.base.Controller;
@@ -37,7 +35,6 @@ public class SearchController extends Controller<SearchView> {
 
     private Disposable createGetCompaniesStream() {
         return queryPublisher.debounce(200, TimeUnit.MILLISECONDS)
-                .filter(query -> !TextUtils.isEmpty(query)) // skip empty string
                 .switchMap(query -> getCompanies(query))
                 .subscribe();
     }

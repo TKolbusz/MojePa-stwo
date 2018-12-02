@@ -5,6 +5,7 @@ import com.tkolbusz.domain.command.CommandData;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.repository.CompanyRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,7 +23,18 @@ public class SearchCompaniesCommand extends Command<List<Company>, SearchCompani
 
     @Override
     protected Observable<List<Company>> buildObservable(Params params) {
-        return Observable.fromCallable(() -> companyRepository.getCompanies(params.query));
+        String query = params.query;
+        // send empty list
+        if (query == null || query.length() == 0) return Observable.just(Collections.emptyList());
+        return Observable.create(emitter -> {
+            try {
+                List<Company> companies = companyRepository.getCompanies(query);
+                emitter.onNext(companies);
+                emitter.onComplete();
+            } catch (Exception e) {
+                emitter.tryOnError(e);
+            }
+        });
     }
 
     public static class Params {

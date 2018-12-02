@@ -3,6 +3,7 @@ package com.tkolbusz.mojepastwo.search;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkolbusz.domain.exception.ConnectionException;
@@ -22,6 +23,7 @@ public class SearchView extends BaseView {
     private final RecyclerView companiesListView;
     private final androidx.appcompat.widget.SearchView androidSearchView;
     private final Toolbar toolbar;
+    private final SearchListAdapter adapter;
 
     private final SearchController controller;
 
@@ -32,6 +34,9 @@ public class SearchView extends BaseView {
         LayoutInflater.from(mainDisplay.getContext()).inflate(R.layout.search_view, this, true);
         toolbar = findViewById(R.id.search_view_toolbar);
         companiesListView = findViewById(R.id.search_view_recyclerView);
+        companiesListView.setLayoutManager(new LinearLayoutManager(mainDisplay.getContext()));
+        adapter = new SearchListAdapter();
+        companiesListView.setAdapter(adapter);
 
         toolbar.setTitle(getString(R.string.search_companies_title));
         toolbar.inflateMenu(R.menu.search_menu);
@@ -55,7 +60,7 @@ public class SearchView extends BaseView {
     }
 
     public void displayCompanies(List<Company> companies) {
-
+        adapter.setData(companies);
     }
 
     public void displayError(Throwable error) {
@@ -63,6 +68,7 @@ public class SearchView extends BaseView {
             super.displayError(getString(R.string.no_connection_error));
         } else if (error instanceof ProviderException) {
             super.displayError(getString(R.string.internal_error, error.getMessage()));
-        }
+        } else
+            super.displayError(error);
     }
 }
