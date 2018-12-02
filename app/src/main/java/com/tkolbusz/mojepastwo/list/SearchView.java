@@ -1,5 +1,6 @@
 package com.tkolbusz.mojepastwo.list;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.widget.Toolbar;
@@ -19,10 +20,13 @@ public class SearchView extends BaseView {
     public SearchView(@NotNull IMainDisplay mainDisplay) {
         super(mainDisplay);
         LayoutInflater.from(mainDisplay.getContext()).inflate(R.layout.search_view,this,true);
-        this.toolbar = findViewById(R.id.search_view_toolbar);
-        this.companiesListView = findViewById(R.id.search_view_recyclerView);
-        this.androidSearchView = findViewById(R.id.search_view_androidSearchView);
+        toolbar = findViewById(R.id.search_view_toolbar);
+        companiesListView = findViewById(R.id.search_view_recyclerView);
 
         toolbar.setTitle(getString(R.string.search_companies_title));
+        toolbar.inflateMenu(R.menu.search_menu);
+
+        androidSearchView = ((androidx.appcompat.widget.SearchView) toolbar.getMenu().findItem(R.id.action_search).getActionView());
+        androidSearchView.setMaxWidth(Integer.MAX_VALUE);
     }
 }

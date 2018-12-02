@@ -1,9 +1,12 @@
 package com.tkolbusz.mojepastwo.base;
 
 import android.content.Context;
+import android.view.ContextThemeWrapper;
 import android.widget.FrameLayout;
 
 import androidx.annotation.StringRes;
+
+import com.tkolbusz.mojepastwo.R;
 
 import org.jetbrains.annotations.NotNull;
 
