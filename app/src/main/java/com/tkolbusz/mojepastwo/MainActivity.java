@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity implements IMainDisplay {
         displayDefaultView();
     }
 
+    @Override
+    protected void onDestroy() {
+        for (BaseView baseView : viewCache) {
+            baseView.onDestroy();
+        }
+        super.onDestroy();
+    }
+
     private void displayDefaultView() {
         displayView(SearchView.class);
     }
@@ -67,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements IMainDisplay {
             try {
                 baseView = viewClass.getConstructor(IMainDisplay.class).newInstance(this);
             } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
+                e.printStackTrace();
                 throw new RuntimeException(viewClass.getSimpleName() + " has no constructor with IMainDisplay as parameter");
             }
         }

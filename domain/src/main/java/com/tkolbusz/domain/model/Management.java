@@ -1,6 +1,6 @@
 package com.tkolbusz.domain.model;
 
-class Management {
+public class Management {
     private final ManagerPosition managerPosition;
     private final Person person;
 

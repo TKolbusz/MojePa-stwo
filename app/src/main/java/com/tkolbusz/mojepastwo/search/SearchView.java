@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tkolbusz.domain.exception.ConnectionException;
+import com.tkolbusz.domain.exception.ProviderException;
+import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.mojepastwo.MojePanstwoApplication;
 import com.tkolbusz.mojepastwo.R;
 import com.tkolbusz.mojepastwo.base.BaseView;
@@ -21,10 +24,12 @@ public class SearchView extends BaseView {
     private final Toolbar toolbar;
 
     private final SearchController controller;
+
     public SearchView(@NotNull IMainDisplay mainDisplay) {
         super(mainDisplay);
         this.controller = MojePanstwoApplication.getComponent(mainDisplay.getContext()).createSearchController();
-        LayoutInflater.from(mainDisplay.getContext()).inflate(R.layout.search_view,this,true);
+        setController(this.controller);
+        LayoutInflater.from(mainDisplay.getContext()).inflate(R.layout.search_view, this, true);
         toolbar = findViewById(R.id.search_view_toolbar);
         companiesListView = findViewById(R.id.search_view_recyclerView);
 
@@ -49,7 +54,15 @@ public class SearchView extends BaseView {
 
     }
 
-    public void displayCompanies(List<String> companies) {
+    public void displayCompanies(List<Company> companies) {
 
+    }
+
+    public void displayError(Throwable error) {
+        if (error instanceof ConnectionException) {
+            super.displayError(getString(R.string.no_connection_error));
+        } else if (error instanceof ProviderException) {
+            super.displayError(getString(R.string.internal_error, error.getMessage()));
+        }
     }
 }

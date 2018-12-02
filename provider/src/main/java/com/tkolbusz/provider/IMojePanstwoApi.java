@@ -1,5 +1,7 @@
 package com.tkolbusz.provider;
 
+import com.tkolbusz.provider.dto.DataResponseDTO;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

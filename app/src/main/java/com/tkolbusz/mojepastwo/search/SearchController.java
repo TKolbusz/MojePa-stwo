@@ -1,29 +1,29 @@
 package com.tkolbusz.mojepastwo.search;
 
+import android.text.TextUtils;
+
+import com.tkolbusz.domain.command.companies.SearchCompaniesCommand;
+import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.mojepastwo.base.Controller;
-import com.tkolbusz.provider.ProviderService;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
 public class SearchController extends Controller<SearchView> {
-    private final ProviderService providerService;
+    private final SearchCompaniesCommand searchCompaniesCommand;
 
     private final PublishSubject<String> queryPublisher;
 
     @Inject
-    public SearchController(ProviderService providerService) {
-        this.providerService = providerService;
-        queryPublisher = PublishSubject.create();
+    public SearchController(SearchCompaniesCommand searchCompaniesCommand) {
+        this.searchCompaniesCommand = searchCompaniesCommand;
+        this.queryPublisher = PublishSubject.create();
     }
 
     @Override
@@ -37,21 +37,18 @@ public class SearchController extends Controller<SearchView> {
 
     private Disposable createGetCompaniesStream() {
         return queryPublisher.debounce(200, TimeUnit.MILLISECONDS)
-                .switchMapSingle(query -> getCompanies(query))
-                .subscribe(companies -> getView().displayCompanies(companies));
+                .filter(query -> !TextUtils.isEmpty(query)) // skip empty string
+                .switchMap(query -> getCompanies(query))
+                .subscribe();
     }
 
-    private Single<List<String>> getCompanies(String query) {
-        return Single.create((SingleEmitter<List<String>> emitter) -> {
-            try {
-                emitter.onSuccess(providerService.getCompanies(query));
-            } catch (Exception e) {
-                // pass error to stream if not disposed
-                emitter.tryOnError(e);
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-
+    private Observable<List<Company>> getCompanies(String query) {
+        return searchCompaniesCommand.apply(new SearchCompaniesCommand.Params(query))
+                .doOnNext(companies -> getView().displayCompanies(companies))
+                .onErrorResumeNext(error -> {
+                    getView().displayError(error);
+                    return Observable.empty();
+                });
     }
+
 }

@@ -1,10 +1,10 @@
 
-package com.tkolbusz.provider;
+package com.tkolbusz.provider.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class LinksDTO {
+public class LinksDTO {
 
     @SerializedName("self")
     @Expose

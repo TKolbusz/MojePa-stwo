@@ -1,18 +1,15 @@
 package com.tkolbusz.mojepastwo.base;
 
-import android.content.Context;
-import android.view.ContextThemeWrapper;
 import android.widget.FrameLayout;
 
 import androidx.annotation.StringRes;
-
-import com.tkolbusz.mojepastwo.R;
 
 import org.jetbrains.annotations.NotNull;
 
 
 public class BaseView extends FrameLayout {
     private final IMainDisplay mainDisplay;
+    private Controller controller;
 
     public BaseView(@NotNull IMainDisplay mainDisplay) {
         super(mainDisplay.getContext());
@@ -21,6 +18,15 @@ public class BaseView extends FrameLayout {
 
     protected String getString(@StringRes int res,Object... formatArgs){
         return getContext().getString(res,formatArgs);
+    }
+
+    protected void setController(Controller controller) {
+        this.controller = controller;
+        controller.setView(this);
+    }
+
+    public void onDestroy() {
+        if (controller != null) controller.setView(null);
     }
 
     //#region delegated methods

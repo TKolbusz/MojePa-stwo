@@ -1,12 +1,12 @@
 
-package com.tkolbusz.provider;
+package com.tkolbusz.provider.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class DataResponseDTO {
+public class DataResponseDTO {
 
     @SerializedName("Dataobject")
     @Expose

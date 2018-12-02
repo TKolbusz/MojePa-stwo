@@ -10,7 +10,7 @@ public class ProviderServiceTest {
     @Test
     public void getCompanies() throws Exception {
         ProviderService providerService = ProviderServiceFactory.getProviderService();
-        List<String> orlen = providerService.getCompanies("Orlen");
+        List<String> orlen = providerService.searchCompanies("Orlen");
         assertTrue(orlen.size() > 0);
     }
 }

@@ -6,9 +6,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProviderServiceFactory {
-    private static ProviderService INSTANCE = null;
+    private static IProviderService INSTANCE = null;
 
-    public synchronized static ProviderService getProviderService() {
+    public synchronized static IProviderService getProviderService() {
         if (INSTANCE == null) INSTANCE = new ProviderService(createApi());
         return INSTANCE;
     }

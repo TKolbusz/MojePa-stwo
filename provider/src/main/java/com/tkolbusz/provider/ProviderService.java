@@ -2,27 +2,30 @@ package com.tkolbusz.provider;
 
 import com.tkolbusz.domain.exception.ConnectionException;
 import com.tkolbusz.domain.exception.ProviderException;
+import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.provider.dto.DataResponseDTO;
+import com.tkolbusz.provider.dto.converter.CompanyConverter;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import retrofit2.Response;
 
-public class ProviderService {
+class ProviderService implements IProviderService {
     private final IMojePanstwoApi api;
 
-    public ProviderService(IMojePanstwoApi api) {
+    ProviderService(IMojePanstwoApi api) {
         this.api = api;
     }
 
 
-    public List<String> getCompanies(String searchQuery) throws ConnectionException, ProviderException {
+    @Override
+    public List<Company> searchCompanies(String searchQuery) throws ConnectionException, ProviderException {
         try {
             Response<DataResponseDTO> response = api.searchCompanies(searchQuery).execute();
             assertIsResponseSuccessful(response);
             DataResponseDTO body = response.body();
-            return body.getDataObjectDTO().stream().map(d -> d.getDataDTO().getKrsPodmiotyNazwa()).collect(Collectors.toList());
+            return new CompanyConverter().transform(body.getDataObjectDTO());
         } catch (IOException e) {
             throw new ConnectionException();
         }

@@ -1,6 +1,6 @@
 package com.tkolbusz.mojepastwo.di;
 
-import com.tkolbusz.provider.ProviderService;
+import com.tkolbusz.provider.IProviderService;
 import com.tkolbusz.provider.ProviderServiceFactory;
 
 import javax.inject.Singleton;
@@ -12,7 +12,7 @@ import dagger.Provides;
 public class ProviderModule {
     @Singleton
     @Provides
-    ProviderService providerService() {
+    IProviderService providerService() {
         return ProviderServiceFactory.getProviderService();
     }
 }

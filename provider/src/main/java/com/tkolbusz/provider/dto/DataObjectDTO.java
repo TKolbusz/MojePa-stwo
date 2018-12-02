@@ -1,10 +1,10 @@
 
-package com.tkolbusz.provider;
+package com.tkolbusz.provider.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class DataObjectDTO {
+public class DataObjectDTO {
 
     @SerializedName("id")
     @Expose
@@ -32,7 +32,7 @@ class DataObjectDTO {
     private Double score;
     @SerializedName("data")
     @Expose
-    private DataDTO data;
+    private CompanyDTO data;
 
     public String getId() {
         return id;
@@ -98,12 +98,12 @@ class DataObjectDTO {
         this.score = score;
     }
 
-    public DataDTO getDataDTO() {
+    public CompanyDTO getDataDTO() {
         return data;
     }
 
-    public void setDataDTO(DataDTO dataDTO) {
-        this.data = dataDTO;
+    public void setDataDTO(CompanyDTO companyDTO) {
+        this.data = companyDTO;
     }
 
 }

@@ -12,8 +12,11 @@ public class Money {
     }
 
     public Money(double amount, String currency) {
-        this.amount = BigDecimal.valueOf(amount).setScale(2, BigDecimal.ROUND_HALF_UP);
-        this.currency = Currency.valueOf(currency);
+        this(amount, Currency.valueOf(currency));
+    }
+
+    public Money(double amount, Currency currency) {
+        this(BigDecimal.valueOf(amount), currency);
     }
 
     public Currency getCurrency() {

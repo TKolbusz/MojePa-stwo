@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ProviderModule.class})
+@Component(modules = {ProviderModule.class, RepositoryModule.class, ApplicationModule.class})
 public interface ApplicationComponent {
 
     SearchController createSearchController();
