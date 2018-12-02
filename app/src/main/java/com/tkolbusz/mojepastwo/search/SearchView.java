@@ -1,4 +1,4 @@
-package com.tkolbusz.mojepastwo.list;
+package com.tkolbusz.mojepastwo.search;
 
 import android.view.LayoutInflater;
 

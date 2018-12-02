@@ -1,6 +1,6 @@
 package com.tkolbusz.mojepastwo.di;
 
-import com.tkolbusz.mojepastwo.list.SearchController;
+import com.tkolbusz.mojepastwo.search.SearchController;
 
 import javax.inject.Singleton;
 

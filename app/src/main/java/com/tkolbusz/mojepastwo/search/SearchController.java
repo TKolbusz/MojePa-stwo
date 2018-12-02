@@ -1,4 +1,4 @@
-package com.tkolbusz.mojepastwo.list;
+package com.tkolbusz.mojepastwo.search;
 
 import com.tkolbusz.mojepastwo.base.Controller;
 import com.tkolbusz.provider.ProviderService;

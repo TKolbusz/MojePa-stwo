@@ -1,18 +1,17 @@
 package com.tkolbusz.mojepastwo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
-import com.tkolbusz.mojepastwo.list.SearchView;
+import com.tkolbusz.mojepastwo.search.SearchView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
