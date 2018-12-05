@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Company {
     private final String name;
+    private final String type;
     private final String krsNumber;
     private final String regon;
     private final Date registerDate;
@@ -13,8 +14,9 @@ public class Company {
     private final Address address;
     private final List<Management> management;
 
-    public Company(String name, String krsNumber, String regon, Date registerDate, Money stock, Address address, List<Management> management) {
+    public Company(String name, String type, String krsNumber, String regon, Date registerDate, Money stock, Address address, List<Management> management) {
         this.name = name;
+        this.type = type;
         this.krsNumber = krsNumber;
         this.regon = regon;
         this.registerDate = registerDate;
@@ -34,6 +36,10 @@ public class Company {
 
     public String getRegon() {
         return regon;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Date getRegisterDate() {

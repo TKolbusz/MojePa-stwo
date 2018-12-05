@@ -3,4 +3,6 @@
     <string name="search_companies_title">Wyszukiwanie firm</string>
     <string name="no_connection_error">Brak połączenia z serwerem</string>
     <string name="internal_error">Wewnętrzny błąd: %s</string>
+    <string name="query_hint">Nazwa firmy</string>
+    <string name="registered">Rejestracja</string>
 </resources>

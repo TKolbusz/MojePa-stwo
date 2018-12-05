@@ -9,10 +9,28 @@
     android:paddingBottom="8dp">
 
     <TextView
+        android:id="@+id/companyTypeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sp zoo"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/companyNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/primary"
+        android:textSize="16sp"
         android:text="company xml"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/companyDetailsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="krs 298304824 --"
+        android:textSize="14sp" />
 </LinearLayout>

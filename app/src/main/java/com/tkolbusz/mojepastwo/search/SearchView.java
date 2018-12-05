@@ -4,6 +4,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +36,7 @@ public class SearchView extends BaseView {
         toolbar = findViewById(R.id.search_view_toolbar);
         companiesListView = findViewById(R.id.search_view_recyclerView);
         companiesListView.setLayoutManager(new LinearLayoutManager(mainDisplay.getContext()));
+        companiesListView.addItemDecoration(new DividerItemDecoration(mainDisplay.getContext(), DividerItemDecoration.VERTICAL));
         adapter = new SearchListAdapter();
         companiesListView.setAdapter(adapter);
 
@@ -43,6 +45,7 @@ public class SearchView extends BaseView {
 
         androidSearchView = ((androidx.appcompat.widget.SearchView) toolbar.getMenu().findItem(R.id.action_search).getActionView());
         androidSearchView.setMaxWidth(Integer.MAX_VALUE);
+        androidSearchView.setQueryHint(getString(R.string.query_hint));
 
         androidSearchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override

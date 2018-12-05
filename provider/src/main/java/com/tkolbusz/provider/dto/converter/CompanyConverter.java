@@ -15,7 +15,8 @@ public class CompanyConverter extends BasicConverter<Company, DataObjectDTO> {
         }
         CompanyDTO companyDTO = DTO.getDataDTO();
         return new Company(
-                companyDTO.getKrsPodmiotyNazwa(),
+                companyDTO.getKrsPodmiotyNazwaSkrocona(),
+                companyDTO.getKrsPodmiotyFormaPrawnaStr(),
                 companyDTO.getKrsPodmiotyNumerWpisu(),
                 companyDTO.getKrsPodmiotyRegon(),
                 new DateMapper().transform(companyDTO.getKrsPodmiotyDataRejestracji()),
