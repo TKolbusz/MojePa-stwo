@@ -4,7 +4,7 @@ import com.tkolbusz.domain.command.Command;
 import com.tkolbusz.domain.command.CommandData;
 import com.tkolbusz.domain.exception.ConnectionException;
 import com.tkolbusz.domain.exception.ProviderException;
-import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.domain.repository.CompanyRepository;
 
 import java.util.Collections;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
-public class SearchCompaniesCommand extends Command<List<Company>, SearchCompaniesCommand.Params> {
+public class SearchCompaniesCommand extends Command<List<CompanySmall>, SearchCompaniesCommand.Params> {
     private final CompanyRepository companyRepository;
 
     @Inject
@@ -24,13 +24,14 @@ public class SearchCompaniesCommand extends Command<List<Company>, SearchCompani
     }
 
     @Override
-    protected Observable<List<Company>> buildObservable(Params params) {
+    protected Observable<List<CompanySmall>> buildObservable(Params params) {
         String query = params.query;
+        int page = params.page;
         // send empty list
         if (query == null || query.length() == 0) return Observable.just(Collections.emptyList());
         return Observable.create(emitter -> {
             try {
-                List<Company> companies = companyRepository.getCompanies(query);
+                List<CompanySmall> companies = companyRepository.getCompanies(query, page);
                 emitter.onNext(companies);
                 emitter.onComplete();
             } catch (ConnectionException | ProviderException e) {
@@ -41,9 +42,11 @@ public class SearchCompaniesCommand extends Command<List<Company>, SearchCompani
 
     public static class Params {
         String query;
+        int page;
 
-        public Params(String query) {
+        public Params(String query, int page) {
             this.query = query;
+            this.page = page;
         }
 
     }

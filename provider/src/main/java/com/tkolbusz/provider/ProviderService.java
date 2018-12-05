@@ -2,9 +2,9 @@ package com.tkolbusz.provider;
 
 import com.tkolbusz.domain.exception.ConnectionException;
 import com.tkolbusz.domain.exception.ProviderException;
-import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.provider.dto.DataResponseDTO;
-import com.tkolbusz.provider.dto.converter.CompanyConverter;
+import com.tkolbusz.provider.dto.converter.CompanySmallConverter;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,12 +20,12 @@ class ProviderService implements IProviderService {
 
 
     @Override
-    public List<Company> searchCompanies(String searchQuery, int page, int limit) throws ConnectionException, ProviderException {
+    public List<CompanySmall> searchCompanies(String searchQuery, int page, int limit) throws ConnectionException, ProviderException {
         try {
             Response<DataResponseDTO> response = api.searchCompanies(searchQuery, page, limit).execute();
             assertIsResponseSuccessful(response);
             DataResponseDTO body = response.body();
-            return new CompanyConverter().transform(body.getDataObjectDTO());
+            return new CompanySmallConverter().transform(body.getDataObjectDTO());
         } catch (IOException e) {
             throw new ConnectionException();
         }

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.domain.util.DateUtils;
 import com.tkolbusz.mojepastwo.R;
 
@@ -19,7 +19,7 @@ class CompanyViewHolder extends RecyclerView.ViewHolder {
     private final TextView companyNameTextView;
     private final TextView companyTypeTextView;
     private final TextView companyDetailsTextView;
-    private Company company;
+    private CompanySmall company;
 
     CompanyViewHolder(@NonNull ViewGroup parent, ClickListener clickListener) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.search_company_item, parent, false));
@@ -29,14 +29,14 @@ class CompanyViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> clickListener.onClick(company));
     }
 
-    void bind(@NotNull Company company) {
+    void bind(@NotNull CompanySmall company) {
         this.company = company;
         companyTypeTextView.setText(company.getType());
         companyNameTextView.setText(company.getName());
         companyDetailsTextView.setText(formDetails(company));
     }
 
-    private String formDetails(Company company) {
+    private String formDetails(CompanySmall company) {
         StringBuilder builder = new StringBuilder();
         if (!TextUtils.isEmpty(company.getKrsNumber())) {
             builder.append("KRS ");
@@ -56,6 +56,6 @@ class CompanyViewHolder extends RecyclerView.ViewHolder {
     }
 
     interface ClickListener {
-        void onClick(@Nullable Company company);
+        void onClick(@Nullable CompanySmall company);
     }
 }

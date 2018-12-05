@@ -1,7 +1,7 @@
 package com.tkolbusz.mojepastwo.ui.search;
 
 import com.tkolbusz.domain.command.companies.SearchCompaniesCommand;
-import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.mojepastwo.base.Controller;
 
 import java.util.List;
@@ -39,8 +39,8 @@ public class SearchController extends Controller<SearchView> {
                 .subscribe();
     }
 
-    private Observable<List<Company>> getCompanies(String query) {
-        return searchCompaniesCommand.apply(new SearchCompaniesCommand.Params(query))
+    private Observable<List<CompanySmall>> getCompanies(String query) {
+        return searchCompaniesCommand.apply(new SearchCompaniesCommand.Params(query, 0))
                 .doOnNext(companies -> getView().displayCompanies(companies))
                 .onErrorResumeNext(error -> {
                     getView().displayError(error);
@@ -48,7 +48,7 @@ public class SearchController extends Controller<SearchView> {
                 });
     }
 
-    void onCompanySelected(Company company) {
-        getView().displayCompanyDetailsView(company);
+    void onCompanySelected(CompanySmall companySmall) {
+        getView().displayCompanyDetailsView(companySmall);
     }
 }

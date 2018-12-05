@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkolbusz.domain.exception.ConnectionException;
 import com.tkolbusz.domain.exception.ProviderException;
-import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.mojepastwo.R;
 import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
@@ -63,7 +63,7 @@ public class SearchView extends BaseView {
 
     }
 
-    public void displayCompanies(List<Company> companies) {
+    public void displayCompanies(List<CompanySmall> companies) {
         // prevent weird scroll to new item
         Parcelable recyclerViewState = companiesListView.getLayoutManager().onSaveInstanceState();
         adapter.setData(companies);
@@ -79,7 +79,7 @@ public class SearchView extends BaseView {
             super.displayError(error);
     }
 
-    public void displayCompanyDetailsView(Company company) {
+    public void displayCompanyDetailsView(CompanySmall company) {
         DetailView detailView = getMainDisplay().displayView(DetailView.class);
         detailView.setCompany(company);
     }

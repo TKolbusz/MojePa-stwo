@@ -6,14 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.mojepastwo.util.BasicDiffer;
 
 import java.util.Collections;
 import java.util.List;
 
 class SearchListAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
-    private List<Company> data = Collections.emptyList();
+    private List<CompanySmall> data = Collections.emptyList();
     private final CompanyViewHolder.ClickListener clickListener;
 
     public SearchListAdapter(CompanyViewHolder.ClickListener clickListener) {
@@ -36,7 +36,7 @@ class SearchListAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
         return data.size();
     }
 
-    void setData(List<Company> newList) {
+    void setData(List<CompanySmall> newList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BasicDiffer<>(data, newList));
         this.data = newList;
         diffResult.dispatchUpdatesTo(this);

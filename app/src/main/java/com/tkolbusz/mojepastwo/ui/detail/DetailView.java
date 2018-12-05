@@ -1,6 +1,6 @@
 package com.tkolbusz.mojepastwo.ui.detail;
 
-import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
 
@@ -15,7 +15,7 @@ public class DetailView extends BaseView {
         controller = mainDisplay.getComponent().createDetailController();
     }
 
-    public void setCompany(Company company) {
-        controller.onGetCompany(company);
+    public void setCompany(CompanySmall company) {
+        controller.onGetCompanyDetails(company);
     }
 }

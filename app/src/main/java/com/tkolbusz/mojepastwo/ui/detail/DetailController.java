@@ -2,6 +2,7 @@ package com.tkolbusz.mojepastwo.ui.detail;
 
 import com.tkolbusz.domain.command.companies.GetCompanyDetailsCommand;
 import com.tkolbusz.domain.model.Company;
+import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.mojepastwo.base.Controller;
 
 import javax.inject.Inject;
@@ -16,7 +17,7 @@ public class DetailController extends Controller<DetailView> {
         this.getCompanyDetailsUseCase = getCompanyDetailsUseCase;
     }
 
-    public void onGetCompany(Company company) {
+    public void onGetCompanyDetails(CompanySmall company) {
         DisposableObserver<Company> observer = getCompanyDetailsUseCase.apply(new GetCompanyDetailsCommand.Params(company))
                 .subscribeWith(new DisposableObserver<Company>() {
                     @Override

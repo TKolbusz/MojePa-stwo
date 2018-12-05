@@ -8,7 +8,7 @@ public class DataObjectDTO {
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private Integer id;
     @SerializedName("dataset")
     @Expose
     private String dataset;
@@ -34,11 +34,11 @@ public class DataObjectDTO {
     @Expose
     private CompanyDTO data;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
