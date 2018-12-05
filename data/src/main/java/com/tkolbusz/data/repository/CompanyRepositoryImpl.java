@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.tkolbusz.domain.Config.REST_PAGE_SIZE;
+
 public class CompanyRepositoryImpl implements CompanyRepository {
     private final IProviderService providerService;
 
@@ -19,7 +21,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public List<Company> getCompanies(String query) throws ConnectionException, ProviderException {
-        return providerService.searchCompanies(query);
+    public List<Company> getCompanies(String query, int page) throws ConnectionException, ProviderException {
+        return providerService.searchCompanies(query, page, REST_PAGE_SIZE);
     }
 }

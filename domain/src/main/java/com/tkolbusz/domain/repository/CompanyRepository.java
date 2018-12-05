@@ -7,5 +7,5 @@ import com.tkolbusz.domain.model.Company;
 import java.util.List;
 
 public interface CompanyRepository {
-    List<Company> getCompanies(String query) throws ConnectionException, ProviderException;
+    List<Company> getCompanies(String query, int page) throws ConnectionException, ProviderException;
 }

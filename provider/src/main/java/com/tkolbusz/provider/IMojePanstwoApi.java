@@ -10,5 +10,5 @@ public interface IMojePanstwoApi {
     String BASE_URL = "https://api-v3.mojepanstwo.pl/";
 
     @GET("/dane/krs_podmioty.json")
-    Call<DataResponseDTO> searchCompanies(@Query("conditions[q]") String searchQuery);
+    Call<DataResponseDTO> searchCompanies(@Query("conditions[q]") String searchQuery, @Query("page") int page, @Query("limit") int limit);
 }

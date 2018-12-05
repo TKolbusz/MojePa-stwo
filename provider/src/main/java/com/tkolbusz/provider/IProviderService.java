@@ -7,5 +7,5 @@ import com.tkolbusz.domain.model.Company;
 import java.util.List;
 
 public interface IProviderService {
-    List<Company> searchCompanies(String searchQuery) throws ConnectionException, ProviderException;
+    List<Company> searchCompanies(String searchQuery, int page, int limit) throws ConnectionException, ProviderException;
 }

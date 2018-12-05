@@ -20,9 +20,9 @@ class ProviderService implements IProviderService {
 
 
     @Override
-    public List<Company> searchCompanies(String searchQuery) throws ConnectionException, ProviderException {
+    public List<Company> searchCompanies(String searchQuery, int page, int limit) throws ConnectionException, ProviderException {
         try {
-            Response<DataResponseDTO> response = api.searchCompanies(searchQuery).execute();
+            Response<DataResponseDTO> response = api.searchCompanies(searchQuery, page, limit).execute();
             assertIsResponseSuccessful(response);
             DataResponseDTO body = response.body();
             return new CompanyConverter().transform(body.getDataObjectDTO());
