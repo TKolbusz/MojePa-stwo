@@ -2,6 +2,8 @@ package com.tkolbusz.provider;
 
 import com.tkolbusz.provider.dto.DataResponseDTO;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -14,5 +16,5 @@ public interface IMojePanstwoApi {
     Call<DataResponseDTO> searchCompanies(@Query("conditions[q]") String searchQuery, @Query("page") int page, @Query("limit") int limit);
 
     @GET("/dane/krs_podmioty/{companyId}.json")
-    Call<DataResponseDTO> getCompanyById(@Path("companyId") int id);
+    Call<DataResponseDTO> getCompanyById(@Path("companyId") int id, @Query("layers") List<String> layers);
 }
