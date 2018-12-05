@@ -13,7 +13,7 @@ import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
 import com.tkolbusz.mojepastwo.di.ApplicationComponent;
 import com.tkolbusz.mojepastwo.di.DaggerApplicationComponent;
-import com.tkolbusz.mojepastwo.search.SearchView;
+import com.tkolbusz.mojepastwo.ui.search.SearchView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

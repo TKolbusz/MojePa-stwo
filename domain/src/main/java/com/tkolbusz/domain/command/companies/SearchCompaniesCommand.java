@@ -2,6 +2,8 @@ package com.tkolbusz.domain.command.companies;
 
 import com.tkolbusz.domain.command.Command;
 import com.tkolbusz.domain.command.CommandData;
+import com.tkolbusz.domain.exception.ConnectionException;
+import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.repository.CompanyRepository;
 
@@ -31,7 +33,7 @@ public class SearchCompaniesCommand extends Command<List<Company>, SearchCompani
                 List<Company> companies = companyRepository.getCompanies(query);
                 emitter.onNext(companies);
                 emitter.onComplete();
-            } catch (Exception e) {
+            } catch (ConnectionException | ProviderException e) {
                 emitter.tryOnError(e);
             }
         });

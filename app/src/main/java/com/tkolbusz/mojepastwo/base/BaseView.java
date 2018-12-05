@@ -20,6 +20,10 @@ public class BaseView extends FrameLayout {
         return getContext().getString(res,formatArgs);
     }
 
+    protected IMainDisplay getMainDisplay() {
+        return mainDisplay;
+    }
+
     protected void setController(Controller controller) {
         this.controller = controller;
         controller.setView(this);
@@ -40,4 +44,6 @@ public class BaseView extends FrameLayout {
         mainDisplay.displayToastMessage(message);
     }
     //#endregion
+
+
 }

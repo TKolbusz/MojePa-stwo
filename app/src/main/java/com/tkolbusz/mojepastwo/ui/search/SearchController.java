@@ -1,4 +1,4 @@
-package com.tkolbusz.mojepastwo.search;
+package com.tkolbusz.mojepastwo.ui.search;
 
 import com.tkolbusz.domain.command.companies.SearchCompaniesCommand;
 import com.tkolbusz.domain.model.Company;
@@ -48,4 +48,7 @@ public class SearchController extends Controller<SearchView> {
                 });
     }
 
+    void onCompanySelected(Company company) {
+        getView().displayCompanyDetailsView(company);
+    }
 }

@@ -1,4 +1,4 @@
-package com.tkolbusz.mojepastwo.search;
+package com.tkolbusz.mojepastwo.ui.search;
 
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.mojepastwo.R;
 import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
+import com.tkolbusz.mojepastwo.ui.detail.DetailView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +38,7 @@ public class SearchView extends BaseView {
         companiesListView = findViewById(R.id.search_view_recyclerView);
         companiesListView.setLayoutManager(new LinearLayoutManager(mainDisplay.getContext()));
         companiesListView.addItemDecoration(new DividerItemDecoration(mainDisplay.getContext(), DividerItemDecoration.VERTICAL));
-        adapter = new SearchListAdapter();
+        adapter = new SearchListAdapter(company -> controller.onCompanySelected(company));
         companiesListView.setAdapter(adapter);
 
         toolbar.setTitle(getString(R.string.search_companies_title));
@@ -76,5 +77,10 @@ public class SearchView extends BaseView {
             super.displayError(getString(R.string.internal_error, error.getMessage()));
         } else
             super.displayError(error);
+    }
+
+    public void displayCompanyDetailsView(Company company) {
+        DetailView detailView = getMainDisplay().displayView(DetailView.class);
+        detailView.setCompany(company);
     }
 }

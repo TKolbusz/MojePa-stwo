@@ -1,4 +1,4 @@
-package com.tkolbusz.mojepastwo.search;
+package com.tkolbusz.mojepastwo.ui.search;
 
 import android.view.ViewGroup;
 
@@ -14,11 +14,16 @@ import java.util.List;
 
 class SearchListAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
     private List<Company> data = Collections.emptyList();
+    private final CompanyViewHolder.ClickListener clickListener;
+
+    public SearchListAdapter(CompanyViewHolder.ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
 
     @NonNull
     @Override
     public CompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CompanyViewHolder(parent);
+        return new CompanyViewHolder(parent, clickListener);
     }
 
     @Override
