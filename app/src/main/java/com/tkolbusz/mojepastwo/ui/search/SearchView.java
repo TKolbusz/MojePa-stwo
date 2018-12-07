@@ -35,18 +35,21 @@ public class SearchView extends BaseView {
         setController(this.controller);
         LayoutInflater.from(mainDisplay.getContext()).inflate(R.layout.search_view, this, true);
         toolbar = findViewById(R.id.search_view_toolbar);
-        companiesListView = findViewById(R.id.search_view_recyclerView);
-        companiesListView.setLayoutManager(new LinearLayoutManager(mainDisplay.getContext()));
-        companiesListView.addItemDecoration(new DividerItemDecoration(mainDisplay.getContext(), DividerItemDecoration.VERTICAL));
-        adapter = new SearchListAdapter(company -> controller.onCompanySelected(company));
-        companiesListView.setAdapter(adapter);
-
         toolbar.setTitle(getString(R.string.search_companies_title));
         toolbar.inflateMenu(R.menu.search_menu);
-
         androidSearchView = ((androidx.appcompat.widget.SearchView) toolbar.getMenu().findItem(R.id.action_search).getActionView());
         androidSearchView.setMaxWidth(Integer.MAX_VALUE);
         androidSearchView.setQueryHint(getString(R.string.query_hint));
+        companiesListView = findViewById(R.id.search_view_recyclerView);
+        companiesListView.setLayoutManager(new LinearLayoutManager(mainDisplay.getContext()));
+        companiesListView.addItemDecoration(new DividerItemDecoration(mainDisplay.getContext(), DividerItemDecoration.VERTICAL));
+        adapter = new SearchListAdapter(
+                companiesListView,
+                company -> controller.onCompanySelected(company),
+                pageToLoad -> controller.onLoadMoreData(QueryData.from(androidSearchView.getQuery().toString(), pageToLoad))
+        );
+        companiesListView.setAdapter(adapter);
+
 
         androidSearchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
@@ -56,30 +59,33 @@ public class SearchView extends BaseView {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                controller.onNewSearchQuery(newText);
+                controller.onNewSearchQuery(QueryData.from(newText));
                 return false;
             }
         });
 
     }
 
-    public void displayCompanies(List<CompanySmall> companies) {
+    void displayCompanies(List<CompanySmall> companies, int currentPage, boolean isLastPage) {
         // prevent weird scroll to new item
         Parcelable recyclerViewState = companiesListView.getLayoutManager().onSaveInstanceState();
-        adapter.setData(companies);
+        adapter.setData(companies, currentPage, isLastPage);
         companiesListView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
     }
+
 
     public void displayError(Throwable error) {
         if (error instanceof ConnectionException) {
             super.displayError(getString(R.string.no_connection_error));
         } else if (error instanceof ProviderException) {
             super.displayError(getString(R.string.internal_error, error.getMessage()));
-        } else
+        } else {
+            error.printStackTrace();
             super.displayError(error);
+        }
     }
 
-    public void displayCompanyDetailsView(CompanySmall company) {
+    void displayCompanyDetailsView(CompanySmall company) {
         DetailView detailView = getMainDisplay().displayView(DetailView.class);
         detailView.setCompany(company);
     }
