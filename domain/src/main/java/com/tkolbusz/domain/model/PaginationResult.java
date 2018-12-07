@@ -19,7 +19,7 @@ public class PaginationResult<T> {
     }
 
     public static <T> PaginationResult<T> firstPage() {
-        return new PaginationResult<>(Collections.emptyList(), 0, false);
+        return new PaginationResult<>(Collections.emptyList(), 0, true);
     }
 
     public List<T> getData() {

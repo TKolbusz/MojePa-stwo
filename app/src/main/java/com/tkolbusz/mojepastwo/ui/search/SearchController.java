@@ -7,6 +7,7 @@ import com.tkolbusz.domain.threading.IPostExecutionThread;
 import com.tkolbusz.mojepastwo.base.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -47,11 +48,12 @@ public class SearchController extends Controller<SearchView> {
         return queryPublisher.debounce(200, TimeUnit.MILLISECONDS, postExecutionThread.getScheduler())
                 .mergeWith(nextPagePublisher)
                 .switchMap(queryData -> getCompanies(queryData))
-                .scan((r1, r2) -> {
-                    if (r2.getNextPage() == 1) return r2;
-                    ArrayList<CompanySmall> arrayList = new ArrayList<>(r1.getData());
-                    arrayList.addAll(r2.getData());
-                    return PaginationResult.from(arrayList, r2.getNextPage(), r2.isLastPage());
+                .scan((previousResult, nextResult) -> {
+                    if (nextResult.getNextPage() == 1 || nextResult.getNextPage() == 0)
+                        return nextResult;
+                    List<CompanySmall> mergedList = new ArrayList<>(previousResult.getData());
+                    mergedList.addAll(nextResult.getData());
+                    return PaginationResult.from(mergedList, nextResult.getNextPage(), nextResult.isLastPage());
                 })
                 .doOnNext(result -> getView().displayCompanies(result.getData(), result.getNextPage(), result.isLastPage()))
                 .subscribe();
