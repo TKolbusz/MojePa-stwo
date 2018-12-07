@@ -7,7 +7,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkolbusz.mojepastwo.base.BaseView;
 import com.tkolbusz.mojepastwo.base.IMainDisplay;
@@ -20,9 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements IMainDisplay {
-    private RecyclerView companiesListView;
     private ViewGroup container;
-    private List<? extends BaseView> viewCache = new ArrayList<>();
+    private List<BaseView> viewCache = new ArrayList<>();
     private ApplicationComponent applicationComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements IMainDisplay {
         if (baseView == null) {
             try {
                 baseView = viewClass.getConstructor(IMainDisplay.class).newInstance(this);
+                viewCache.add(baseView);
             } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
                 throw new RuntimeException(viewClass.getSimpleName() + " has no constructor with IMainDisplay as parameter");
@@ -90,5 +89,18 @@ public class MainActivity extends AppCompatActivity implements IMainDisplay {
         container.removeAllViewsInLayout();
         container.addView(baseView);
         return baseView;
+    }
+
+    @Override
+    public void dismiss() {
+        displayDefaultView();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (container.getChildCount() == 1 && container.getChildAt(0).getClass() == SearchView.class)
+            super.onBackPressed();
+        else
+            displayDefaultView();
     }
 }

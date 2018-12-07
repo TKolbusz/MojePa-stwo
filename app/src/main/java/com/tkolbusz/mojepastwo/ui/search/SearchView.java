@@ -34,7 +34,7 @@ public class SearchView extends BaseView {
         this.controller = mainDisplay.getComponent().createSearchController();
         setController(this.controller);
         LayoutInflater.from(mainDisplay.getContext()).inflate(R.layout.search_view, this, true);
-        toolbar = findViewById(R.id.search_view_toolbar);
+        toolbar = findViewById(R.id.detail_view_toolbar);
         toolbar.setTitle(getString(R.string.search_companies_title));
         toolbar.inflateMenu(R.menu.search_menu);
         androidSearchView = ((androidx.appcompat.widget.SearchView) toolbar.getMenu().findItem(R.id.action_search).getActionView());

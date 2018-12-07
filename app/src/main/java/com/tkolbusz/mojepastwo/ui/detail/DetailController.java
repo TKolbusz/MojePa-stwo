@@ -22,17 +22,19 @@ public class DetailController extends Controller<DetailView> {
                 .subscribeWith(new DisposableObserver<Company>() {
                     @Override
                     public void onNext(Company company) {
-
+                        getView().showLoading();
+                        getView().displayCompany(company);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        getView().hideLoading();
+                        getView().displayError(e);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        getView().hideLoading();
                     }
                 });
 

@@ -43,6 +43,10 @@ public class BaseView extends FrameLayout {
     protected void displayToastMessage(String message){
         mainDisplay.displayToastMessage(message);
     }
+
+    protected void dismiss() {
+        mainDisplay.dismiss();
+    }
     //#endregion
 
 

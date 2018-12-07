@@ -13,4 +13,6 @@ public interface IMainDisplay {
     ApplicationComponent getComponent();
 
     <T extends BaseView> T displayView(Class<T> view);
+
+    void dismiss();
 }
