@@ -1,7 +1,7 @@
 package com.tkolbusz.provider.dto.converter;
 
 import com.tkolbusz.domain.model.Management;
-import com.tkolbusz.domain.model.ManagerPosition;
+import com.tkolbusz.domain.model.Position;
 import com.tkolbusz.domain.util.BasicConverter;
 import com.tkolbusz.provider.dto.ManagementDTO;
 
@@ -17,7 +17,7 @@ class ManagementConverter extends BasicConverter<Management, ManagementDTO> {
         return new Management(
                 DTO.getNazwa(),
                 // valueOf not working
-                ManagerPosition.find(DTO.getFunkcja())
+                Position.find(DTO.getFunkcja())
         );
     }
 }

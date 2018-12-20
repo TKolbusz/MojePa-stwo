@@ -1,8 +1,13 @@
 package com.tkolbusz.mojepastwo.ui.detail;
 
+import android.content.Context;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanySmall;
@@ -12,9 +17,13 @@ import com.tkolbusz.mojepastwo.base.IMainDisplay;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+
 @SuppressWarnings("ViewConstructor")
 public class DetailView extends BaseView {
     private final DetailController controller;
+    private final ProgressBar progressBar;
+
     private final Toolbar toolbar;
     private final TextView taxIdNoTextView;
     private final TextView regonTextView;
@@ -22,20 +31,46 @@ public class DetailView extends BaseView {
     private final TextView registerDateTextView;
     private final TextView stockTextView;
     private final TextView addressTextView;
+    private final TextView typeTextView;
+
+    private final TextView managementPlainTextView;
+    private final RecyclerView managementListView;
+    private final ManagementAdapter managementAdapter;
+
+    private final TextView shareholderPlainTextView;
+    private final RecyclerView shareholdersListView;
+    private final ShareholdersAdapter shareholdersAdapter;
 
     public DetailView(@NotNull IMainDisplay mainDisplay) {
         super(mainDisplay);
+        Context context = mainDisplay.getContext();
         controller = mainDisplay.getComponent().createDetailController();
         setController(controller);
-        inflate(mainDisplay.getContext(), R.layout.detail_view, this);
+        inflate(context, R.layout.detail_view, this);
+        progressBar = findViewById(R.id.detail_progressBar);
         toolbar = findViewById(R.id.detail_toolbar);
         toolbar.setNavigationOnClickListener(__ -> dismiss());
-        taxIdNoTextView = findViewById(R.id.bill_detail_item_title_textView);
-        krsTextView = findViewById(R.id.bill_detail_item_additions_plain_text);
-        regonTextView = findViewById(R.id.bill_detail_item_kitchen_and_date_textView);
-        registerDateTextView = findViewById(R.id.bill_detail_item_title_textView);
-        stockTextView = findViewById(R.id.bill_detail_item_waiter_textView);
-        addressTextView = findViewById(R.id.bill_detail_item_set_elements_plain_text);
+        regonTextView = findViewById(R.id.detail_item_regon_textView);
+        stockTextView = findViewById(R.id.detail_stock_textView);
+        taxIdNoTextView = findViewById(R.id.detail_item_taxidno_textView);
+        typeTextView = findViewById(R.id.detail_item_type_textView);
+        krsTextView = findViewById(R.id.detail_item_krs_textView);
+        registerDateTextView = findViewById(R.id.detail_item_register_date_text);
+        addressTextView = findViewById(R.id.detail_item_address_text);
+
+        managementPlainTextView = findViewById(R.id.detail_management_textView);
+        managementListView = findViewById(R.id.detail_management_recyclerView);
+        managementListView.setLayoutManager(new LinearLayoutManager(context));
+        managementListView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        this.managementAdapter = new ManagementAdapter();
+        managementListView.setAdapter(managementAdapter);
+
+        shareholderPlainTextView = findViewById(R.id.detail_shareholder_textView);
+        shareholdersListView = findViewById(R.id.detail_shareholder_recyclerView);
+        shareholdersListView.setLayoutManager(new LinearLayoutManager(context));
+        shareholdersListView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        this.shareholdersAdapter = new ShareholdersAdapter();
+        shareholdersListView.setAdapter(shareholdersAdapter);
     }
 
     public void setCompany(CompanySmall company) {
@@ -46,26 +81,67 @@ public class DetailView extends BaseView {
         super.displayError(e);
     }
 
-    void showLoading() {
+    void hideView() {
+        getMainDisplay().dismiss();
+    }
 
+    void showLoading() {
+        // TODO: 12/20/18 layout shareholder nowa linia
+        progressBar.setVisibility(VISIBLE);
     }
 
     void hideLoading() {
-
+        // TODO: 12/20/18 fix progress bar
+        progressBar.setVisibility(GONE);
     }
 
-    void displayCompany(Company company) {
-        if (true) return;
+
+    void displayCompany(@NotNull Company company) {
         toolbar.setTitle(company.getName());
-        taxIdNoTextView.setText(company.getTaxIdNo());
-        regonTextView.setText(company.getRegon());
+        typeTextView.setText(company.getType());
+        taxIdNoTextView.setText(getString(R.string.taxidno_with_fill, company.getTaxIdNo()));
+        regonTextView.setText(getString(R.string.regon_with_fill, company.getRegon()));
         registerDateTextView.setText((company.getRegisterDateFormatted()));
         stockTextView.setText(company.getStock().toString());
         krsTextView.setText(company.getKrsNumber());
         addressTextView.setText(company.getAddress() != null ? company.getAddress().toString() : null);
+
+        if (company.getManagement().size() > 0) {
+            managementPlainTextView.setVisibility(VISIBLE);
+            managementListView.setVisibility(VISIBLE);
+        } else {
+            managementPlainTextView.setVisibility(GONE);
+            managementListView.setVisibility(GONE);
+        }
+        managementAdapter.setData(company.getManagement());
+
+        if (company.getShareholders().size() > 0) {
+            shareholderPlainTextView.setVisibility(VISIBLE);
+            shareholdersListView.setVisibility(VISIBLE);
+        } else {
+            shareholderPlainTextView.setVisibility(GONE);
+            shareholdersListView.setVisibility(GONE);
+        }
+        shareholdersAdapter.setData(company.getShareholders());
     }
 
-    public void hideView() {
-        getMainDisplay().dismiss();
+    void clearView() {
+        toolbar.setTitle("");
+        taxIdNoTextView.setText("");
+        regonTextView.setText("");
+        registerDateTextView.setText("");
+        stockTextView.setText("");
+        krsTextView.setText("");
+        addressTextView.setText("");
+        typeTextView.setText("");
+
+        managementPlainTextView.setVisibility(GONE);
+        managementListView.setVisibility(GONE);
+        managementAdapter.setData(Collections.emptyList());
+
+        shareholderPlainTextView.setVisibility(GONE);
+        shareholdersListView.setVisibility(GONE);
+        shareholdersAdapter.setData(Collections.emptyList());
     }
+
 }

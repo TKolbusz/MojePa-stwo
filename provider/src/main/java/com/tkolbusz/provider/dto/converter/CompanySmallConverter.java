@@ -18,7 +18,7 @@ public class CompanySmallConverter extends BasicConverter<CompanySmall, DataObje
                 companyDTO.getKrsPodmiotyNazwaSkrocona(),
                 companyDTO.getKrsPodmiotyFormaPrawnaStr(),
                 new AddressConverter().transform(companyDTO),
-                companyDTO.getKrsPodmiotyNumerWpisu(),
+                companyDTO.getKrsPodmiotyKrs(),
                 new DateMapper().transform(companyDTO.getKrsPodmiotyDataRejestracji())
         );
     }

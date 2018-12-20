@@ -1,15 +1,15 @@
 package com.tkolbusz.domain.model;
 
-public enum ManagerPosition {
+public enum Position {
     CEO("Prezes Zarządu"), VP("Wiceprezes Zarządu"), OTHER("");
     private final String value;
 
-    ManagerPosition(String value) {
+    Position(String value) {
         this.value = value;
     }
 
-    public static ManagerPosition find(String funkcja) {
-        for (ManagerPosition value : ManagerPosition.values()) {
+    public static Position find(String funkcja) {
+        for (Position value : Position.values()) {
             if (value.value.equals(funkcja)) return value;
         }
         return OTHER;

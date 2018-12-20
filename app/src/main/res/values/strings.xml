@@ -13,4 +13,9 @@
     <string name="stock">Kapitał zakładowy</string>
     <string name="address">Adres</string>
     <string name="more">Więcej</string>
+    <string name="shareholders">Udziałowcy</string>
+    <string name="managementAdapter">Zarząd</string>
+    <string name="total_shared_value_text">o łącznej wartości</string>
+    <string name="taxidno_with_fill">NIP %s</string>
+    <string name="regon_with_fill">REGON %s</string>
 </resources>
