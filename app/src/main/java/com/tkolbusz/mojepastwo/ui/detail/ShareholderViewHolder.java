@@ -24,18 +24,21 @@ class ShareholderViewHolder extends RecyclerView.ViewHolder {
 
     void bind(@NotNull Shareholder shareholder) {
         shareholderNameTextView.setText(shareholder.getFullName());
-        sharesInfoTextView.setText(formatShares(shareholder.getShareCount(), shareholder.getTotalShareValue()));
+        sharesInfoTextView.setText(formatShares(
+                shareholder.getShareCount(),
+                shareholder.getShareValuePerUnit(),
+                shareholder.getTotalShareValue()
+        ));
     }
 
-    private String formatShares(int count, Money totalValue) {
+    private String formatShares(int count, Money unitPrice, Money totalValue) {
         StringBuilder strb = new StringBuilder();
+        strb.append(totalValue.toString());
+        strb.append(" (");
         strb.append(count);
-        if (totalValue != null) {
-            strb.append(" ");
-            strb.append(itemView.getContext().getString(R.string.total_shared_value_text));
-            strb.append(" ");
-            strb.append(totalValue.toString());
-        }
+        strb.append(" x ");
+        strb.append(unitPrice.toString());
+        strb.append(")");
         return strb.toString();
     }
 }

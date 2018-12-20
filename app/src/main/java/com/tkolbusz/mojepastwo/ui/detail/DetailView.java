@@ -1,7 +1,7 @@
 package com.tkolbusz.mojepastwo.ui.detail;
 
 import android.content.Context;
-import android.widget.ProgressBar;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.mojepastwo.R;
@@ -22,8 +23,9 @@ import java.util.Collections;
 @SuppressWarnings("ViewConstructor")
 public class DetailView extends BaseView {
     private final DetailController controller;
-    private final ProgressBar progressBar;
+    private final ViewGroup progressLayout;
 
+    private final AppBarLayout appBarLayout;
     private final Toolbar toolbar;
     private final TextView taxIdNoTextView;
     private final TextView regonTextView;
@@ -47,7 +49,8 @@ public class DetailView extends BaseView {
         controller = mainDisplay.getComponent().createDetailController();
         setController(controller);
         inflate(context, R.layout.detail_view, this);
-        progressBar = findViewById(R.id.detail_progressBar);
+        progressLayout = findViewById(R.id.detail_progress_layout);
+        appBarLayout = findViewById(R.id.detail_appbar_layout);
         toolbar = findViewById(R.id.detail_toolbar);
         toolbar.setNavigationOnClickListener(__ -> dismiss());
         regonTextView = findViewById(R.id.detail_item_regon_textView);
@@ -87,23 +90,24 @@ public class DetailView extends BaseView {
 
     void showLoading() {
         // TODO: 12/20/18 layout shareholder nowa linia
-        progressBar.setVisibility(VISIBLE);
+        progressLayout.setVisibility(VISIBLE);
     }
 
     void hideLoading() {
         // TODO: 12/20/18 fix progress bar
-        progressBar.setVisibility(GONE);
+        progressLayout.setVisibility(GONE);
     }
 
 
     void displayCompany(@NotNull Company company) {
+        appBarLayout.setExpanded(true);
         toolbar.setTitle(company.getName());
         typeTextView.setText(company.getType());
         taxIdNoTextView.setText(getString(R.string.taxidno_with_fill, company.getTaxIdNo()));
         regonTextView.setText(getString(R.string.regon_with_fill, company.getRegon()));
         registerDateTextView.setText((company.getRegisterDateFormatted()));
         stockTextView.setText(company.getStock().toString());
-        krsTextView.setText(company.getKrsNumber());
+        krsTextView.setText(getString(R.string.krs_with_fill, company.getKrsNumber()));
         addressTextView.setText(company.getAddress() != null ? company.getAddress().toString() : null);
 
         if (company.getManagement().size() > 0) {

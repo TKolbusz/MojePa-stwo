@@ -7,6 +7,13 @@ import com.tkolbusz.provider.dto.CompanyDTO;
 public class AddressConverter extends BasicConverter<Address, CompanyDTO> {
     @Override
     public Address transform(CompanyDTO DTO) {
-        return null;// TODO: 12/20/18 add
+        if (DTO == null) return null;
+        return new Address(
+                DTO.getKrsPodmiotyAdresUlica(),
+                DTO.getKrsPodmiotyAdresNumer(),
+                DTO.getKrsPodmiotyAdresMiejscowosc(),
+                DTO.getKrsPodmiotyAdresKraj(),
+                DTO.getKrsPodmiotyAdresKodPocztowy()
+        );
     }
 }

@@ -1,7 +1,7 @@
 package com.tkolbusz.domain.model;
 
 public enum Position {
-    CEO("Prezes Zarządu"), VP("Wiceprezes Zarządu"), OTHER("");
+    CEO("Prezes Zarządu"), VP("Wiceprezes Zarządu"), OTHER("Inny");
     private final String value;
 
     Position(String value) {
