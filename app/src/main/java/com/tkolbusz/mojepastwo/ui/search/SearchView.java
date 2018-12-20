@@ -60,7 +60,7 @@ public class SearchView extends BaseView {
             @Override
             public boolean onQueryTextChange(String newText) {
                 controller.onNewSearchQuery(QueryData.from(newText));
-                return false;
+                return true;
             }
         });
 
