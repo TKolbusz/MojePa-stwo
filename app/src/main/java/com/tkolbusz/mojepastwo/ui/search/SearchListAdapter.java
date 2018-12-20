@@ -19,6 +19,7 @@ class SearchListAdapter extends RecyclerView.Adapter {
     private static final int LOADING = 2;
     private static final int RETRY = 3;
     private final CompanyViewHolder.ClickListener clickListener;
+    private final LoadMoreListener loadMoreListener;
     private List<CompanySmall> data = Collections.emptyList();
     private boolean loadAgain = false;
     private boolean isLoading = false;
@@ -28,6 +29,7 @@ class SearchListAdapter extends RecyclerView.Adapter {
 
     SearchListAdapter(RecyclerView recyclerView, CompanyViewHolder.ClickListener clickListener, LoadMoreListener loadMoreListener) {
         this.clickListener = clickListener;
+        this.loadMoreListener = loadMoreListener;
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -43,8 +45,7 @@ class SearchListAdapter extends RecyclerView.Adapter {
                         (visibleItemCount + firstVisibleItemPosition) >= totalItemCount &&
                         firstVisibleItemPosition >= 0
                 ) {
-                    isLoading = true;
-                    loadMoreListener.onLoadMore(nextPage);
+                    loadNextPage();
                 }
             }
         });
@@ -60,7 +61,7 @@ class SearchListAdapter extends RecyclerView.Adapter {
             case LOADING:
                 return new LoadingViewHolder(parent);
             case RETRY:
-                return new RetryViewHolder(parent);
+                return new RetryViewHolder(parent, __ -> loadNextPage());
         }
         return new CompanyViewHolder(parent, clickListener);
     }
@@ -94,6 +95,8 @@ class SearchListAdapter extends RecyclerView.Adapter {
     }
 
     void setData(List<CompanySmall> data, int currentPage, boolean isLastPage) {
+        this.isLoading = false;
+        this.loadAgain = false;
         this.nextPage = currentPage;
         this.isLastPage = isLastPage;
         List<CompanySmall> newList = new ArrayList<>(data);
@@ -103,7 +106,18 @@ class SearchListAdapter extends RecyclerView.Adapter {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BasicDiffer<>(oldList, newList));
         this.data = newList;
         diffResult.dispatchUpdatesTo(this);
-        this.isLoading = false;
+    }
+
+    void setLoadAgain() {
+        loadAgain = true;
+        isLoading = false;
+        notifyItemChanged(getItemCount() - 1);
+    }
+
+    private void loadNextPage() {
+        isLoading = true;
+        loadMoreListener.onLoadMore(nextPage);
+        notifyItemChanged(getItemCount() - 1);
     }
 
     interface LoadMoreListener {

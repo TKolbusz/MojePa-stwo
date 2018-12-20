@@ -89,4 +89,8 @@ public class SearchView extends BaseView {
         DetailView detailView = getMainDisplay().displayView(DetailView.class);
         detailView.setCompany(company);
     }
+
+    public void setLoadAgain() {
+        adapter.setLoadAgain();
+    }
 }
