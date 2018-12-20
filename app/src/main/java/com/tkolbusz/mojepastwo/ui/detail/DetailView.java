@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.tkolbusz.domain.exception.ConnectionException;
+import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.mojepastwo.R;
@@ -80,8 +82,15 @@ public class DetailView extends BaseView {
         controller.onGetCompanyDetails(company);
     }
 
-    public void displayError(Throwable e) {
-        super.displayError(e);
+    public void displayError(Throwable error) {
+        if (error instanceof ConnectionException) {
+            super.displayError(getString(R.string.no_connection_error));
+        } else if (error instanceof ProviderException) {
+            super.displayError(getString(R.string.internal_error, error.getMessage()));
+        } else {
+            error.printStackTrace();
+            super.displayError(error);
+        }
     }
 
     void hideView() {

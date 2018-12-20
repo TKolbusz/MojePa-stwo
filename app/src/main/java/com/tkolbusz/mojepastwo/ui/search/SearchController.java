@@ -63,7 +63,7 @@ public class SearchController extends Controller<SearchView> {
         return searchCompaniesCommand.apply(new SearchCompaniesCommand.Params(queryData.getQuery(), queryData.getPageToLoad()))
                 .onErrorResumeNext(error -> {
                     getView().displayError(error);
-                    getView().setLoadAgain();
+                    getView().setLoadingNextPageFailed();
                     return Observable.empty();
                 });
     }

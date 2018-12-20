@@ -90,7 +90,7 @@ public class SearchView extends BaseView {
         detailView.setCompany(company);
     }
 
-    public void setLoadAgain() {
+    public void setLoadingNextPageFailed() {
         adapter.setLoadAgain();
     }
 }
