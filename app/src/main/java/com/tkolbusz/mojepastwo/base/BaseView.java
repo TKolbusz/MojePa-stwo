@@ -16,8 +16,8 @@ public class BaseView extends FrameLayout {
         this.mainDisplay = mainDisplay;
     }
 
-    protected String getString(@StringRes int res,Object... formatArgs){
-        return getContext().getString(res,formatArgs);
+    protected String getString(@StringRes int res, Object... formatArgs) {
+        return getContext().getString(res, formatArgs);
     }
 
     protected IMainDisplay getMainDisplay() {
@@ -34,13 +34,15 @@ public class BaseView extends FrameLayout {
     }
 
     //#region delegated methods
-    protected void displayError(Throwable error){
+    protected void displayError(Throwable error) {
         mainDisplay.displayError(error);
     }
-    protected void displayError(String errorMessage){
+
+    protected void displayError(String errorMessage) {
         mainDisplay.displayError(errorMessage);
     }
-    protected void displayToastMessage(String message){
+
+    protected void displayToastMessage(String message) {
         mainDisplay.displayToastMessage(message);
     }
 

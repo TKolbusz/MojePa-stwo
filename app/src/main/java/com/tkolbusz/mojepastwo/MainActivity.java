@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements IMainDisplay {
     private ViewGroup container;
     private List<BaseView> viewCache = new ArrayList<>();
     private ApplicationComponent applicationComponent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,6 +12,7 @@ public class CompanySmallConverter extends BasicConverter<CompanySmall, DataObje
             return null;
         }
         CompanyDTO companyDTO = DTO.getDataDTO();
+        if (companyDTO == null) return null;
         return new CompanySmall(
                 DTO.getId(),
                 companyDTO.getKrsPodmiotyNazwaSkrocona(),

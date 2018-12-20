@@ -1,38 +1,37 @@
-
 package com.tkolbusz.provider.dto;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class DataObjectDTO {
 
     @SerializedName("id")
-    @Expose
     private Integer id;
     @SerializedName("dataset")
-    @Expose
     private String dataset;
     @SerializedName("url")
-    @Expose
     private String url;
     @SerializedName("mp_url")
-    @Expose
     private String mpUrl;
     @SerializedName("schema_url")
-    @Expose
     private String schemaUrl;
     @SerializedName("global_id")
-    @Expose
     private String globalId;
     @SerializedName("slug")
-    @Expose
     private String slug;
     @SerializedName("score")
-    @Expose
     private Double score;
     @SerializedName("data")
-    @Expose
     private CompanyDTO data;
+    @SerializedName("layers")
+    private LayersDTO layers;
+
+    public LayersDTO getLayers() {
+        return layers;
+    }
+
+    public void setLayers(LayersDTO layers) {
+        this.layers = layers;
+    }
 
     public Integer getId() {
         return id;

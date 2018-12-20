@@ -16,4 +16,9 @@ public class Address {
     public String getCountry() {
         return country;
     }
+
+    @Override
+    public String toString() {
+        return city + " " + country;
+    }
 }

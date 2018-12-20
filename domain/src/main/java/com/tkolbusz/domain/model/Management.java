@@ -1,19 +1,14 @@
 package com.tkolbusz.domain.model;
 
-public class Management {
+public class Management extends Person {
     private final ManagerPosition managerPosition;
-    private final Person person;
 
-    public Management(ManagerPosition managerPosition, Person person) {
+    public Management(String fullName, ManagerPosition managerPosition) {
+        super(fullName);
         this.managerPosition = managerPosition;
-        this.person = person;
     }
 
     public ManagerPosition getManagerPosition() {
         return managerPosition;
-    }
-
-    public Person getPerson() {
-        return person;
     }
 }

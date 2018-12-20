@@ -6,4 +6,11 @@
     <string name="query_hint">Nazwa firmy</string>
     <string name="registered">Rejestracja</string>
     <string name="try_again">Spróbuj ponownie</string>
+    <string name="regon">REGON</string>
+    <string name="taxIdNo">NIP</string>
+    <string name="krs_number">Numer krs</string>
+    <string name="register_date">Data rejestracji</string>
+    <string name="stock">Kapitał zakładowy</string>
+    <string name="address">Adres</string>
+    <string name="more">Więcej</string>
 </resources>

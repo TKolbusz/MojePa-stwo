@@ -30,4 +30,9 @@ public class Money {
     public double getAmountDouble() {
         return amount.doubleValue();
     }
+
+    @Override
+    public String toString() {
+        return amount + " " + currency;
+    }
 }

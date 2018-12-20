@@ -27,8 +27,7 @@ public class SearchCompaniesCommand extends Command<PaginationResult<CompanySmal
     @Override
     protected Observable<PaginationResult<CompanySmall>> buildObservable(Params params) {
         String query = params.query;
-        int page = params.page;
-        // send empty list
+        int page = params.page;        // send empty list
         if (query == null || query.length() == 0)
             return Observable.just(PaginationResult.firstPage());
         return Observable.create(emitter -> {
@@ -50,6 +49,5 @@ public class SearchCompaniesCommand extends Command<PaginationResult<CompanySmal
             this.query = query;
             this.page = page;
         }
-
     }
 }

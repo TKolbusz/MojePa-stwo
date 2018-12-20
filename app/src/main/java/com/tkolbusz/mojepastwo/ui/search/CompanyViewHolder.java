@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkolbusz.domain.model.CompanySmall;
-import com.tkolbusz.domain.util.DateUtils;
 import com.tkolbusz.mojepastwo.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +49,7 @@ class CompanyViewHolder extends RecyclerView.ViewHolder {
             builder.append(" - ");
             builder.append(itemView.getContext().getString(R.string.registered));
             builder.append(" ");
-            builder.append(DateUtils.formatRegisterDate(company.getRegisterDate()));
+            builder.append(company.getRegisterDateFormatted());
         }
         return builder.toString();
     }

@@ -21,8 +21,12 @@ public class DetailController extends Controller<DetailView> {
         DisposableObserver<Company> observer = getCompanyDetailsUseCase.apply(new GetCompanyDetailsCommand.Params(company))
                 .subscribeWith(new DisposableObserver<Company>() {
                     @Override
-                    public void onNext(Company company) {
+                    protected void onStart() {
                         getView().showLoading();
+                    }
+
+                    @Override
+                    public void onNext(Company company) {
                         getView().displayCompany(company);
                     }
 
@@ -30,6 +34,7 @@ public class DetailController extends Controller<DetailView> {
                     public void onError(Throwable e) {
                         getView().hideLoading();
                         getView().displayError(e);
+                        getView().hideView();
                     }
 
                     @Override

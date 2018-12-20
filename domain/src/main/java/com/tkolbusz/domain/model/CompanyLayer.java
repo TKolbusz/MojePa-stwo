@@ -1,10 +1,7 @@
 package com.tkolbusz.domain.model;
 
 public enum CompanyLayer {
-
-    REPRESENTATION("reprezentacja"),
-    SHAREHOLDERS("wspolnicy");
-
+    REPRESENTATION("reprezentacja"), SHAREHOLDERS("wspolnicy");
     private final String layerName;
 
     CompanyLayer(String layerName) {

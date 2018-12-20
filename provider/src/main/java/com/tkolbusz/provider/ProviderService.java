@@ -45,20 +45,15 @@ class ProviderService implements IProviderService {
                 layerStrings.add(layer.getLayerName());
             }
 
-            Response<DataResponseDTO> response = api.getCompanyById(id, layerStrings).execute();
+            Response<DataObjectDTO> response = api.getCompanyById(id, layerStrings).execute();
 
             assertIsResponseSuccessful(response);
 
-            DataResponseDTO body = response.body();
-            if (body.getDataObjectDTO().size() == 0)
+            DataObjectDTO body = response.body();
+            if (body == null)
                 throw new ProviderException("Company with id " + id + " not found", 404);
-            if (body.getDataObjectDTO().size() > 1) {
-                throw new ProviderException("Found multiple companies with id " + id, 500);
-            }
 
-            DataObjectDTO dataObjectDTO = body.getDataObjectDTO().get(0);
-
-            return new CompanyConverter().transform(dataObjectDTO);
+            return new CompanyConverter().transform(body);
         } catch (IOException e) {
             throw new ConnectionException();
         }

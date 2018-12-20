@@ -1,5 +1,7 @@
 package com.tkolbusz.domain.model;
 
+import com.tkolbusz.domain.util.DateUtils;
+
 import java.util.Date;
 
 /**
@@ -22,6 +24,15 @@ public class CompanySmall {
         this.registerDate = registerDate;
     }
 
+    public CompanySmall(CompanySmall other) {
+        this.externalId = other.externalId;
+        this.name = other.name;
+        this.type = other.type;
+        this.address = other.address;
+        this.krsNumber = other.krsNumber;
+        this.registerDate = other.registerDate;
+    }
+
     public Integer getExternalId() {
         return externalId;
     }
@@ -36,6 +47,10 @@ public class CompanySmall {
 
     public Date getRegisterDate() {
         return registerDate;
+    }
+
+    public String getRegisterDateFormatted() {
+        return DateUtils.formatRegisterDate(registerDate);
     }
 
     public Address getAddress() {

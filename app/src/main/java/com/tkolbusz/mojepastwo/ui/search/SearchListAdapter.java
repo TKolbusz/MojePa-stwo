@@ -18,8 +18,8 @@ class SearchListAdapter extends RecyclerView.Adapter {
     private static final int COMPANY = 1;
     private static final int LOADING = 2;
     private static final int RETRY = 3;
-    private List<CompanySmall> data = Collections.emptyList();
     private final CompanyViewHolder.ClickListener clickListener;
+    private List<CompanySmall> data = Collections.emptyList();
     private boolean loadAgain = false;
     private boolean isLoading = false;
     private boolean isLastPage = false;

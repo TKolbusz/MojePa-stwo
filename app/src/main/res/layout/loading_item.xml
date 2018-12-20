@@ -12,5 +12,4 @@
         android:indeterminate="true"
         android:indeterminateTint="@color/primary"
         android:indeterminateTintMode="src_atop" />
-
 </LinearLayout>

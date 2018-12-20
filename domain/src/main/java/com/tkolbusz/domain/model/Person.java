@@ -1,27 +1,18 @@
 package com.tkolbusz.domain.model;
 
 public class Person {
-    private final String name;
-    private final String surname;
+    private final String fullName;
 
-    public Person(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
+    public Person(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
+    public String getFullName() {
+        return fullName;
     }
 
     @Override
     public String toString() {
-        if (surname != null)
-            return name + " " + surname;
-        else
-            return name;
+        return fullName;
     }
 }

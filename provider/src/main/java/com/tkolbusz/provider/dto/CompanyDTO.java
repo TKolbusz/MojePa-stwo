@@ -1,249 +1,167 @@
-
 package com.tkolbusz.provider.dto;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class CompanyDTO {
-
     @SerializedName("krs_podmioty.data_wyrejestrowania_przedsiebiorcy")
-    @Expose
     private Object krsPodmiotyDataWyrejestrowaniaPrzedsiebiorcy;
     @SerializedName("krs_podmioty.data_wykreslenia_stowarzyszenia")
-    @Expose
     private Object krsPodmiotyDataWykresleniaStowarzyszenia;
     @SerializedName("krs_podmioty.data_sprawdzenia")
-    @Expose
     private String krsPodmiotyDataSprawdzenia;
     @SerializedName("krs_podmioty.adres_lokal")
-    @Expose
     private String krsPodmiotyAdresLokal;
     @SerializedName("krs_podmioty.adres_miejscowosc")
-    @Expose
     private String krsPodmiotyAdresMiejscowosc;
     @SerializedName("krs_podmioty.liczba_czlonkow_komitetu_zal")
-    @Expose
     private String krsPodmiotyLiczbaCzlonkowKomitetuZal;
     @SerializedName("krs_podmioty.regon")
-    @Expose
     private String krsPodmiotyRegon;
     @SerializedName("krs_podmioty.akcept")
-    @Expose
     private String krsPodmiotyAkcept;
     @SerializedName("krs_podmioty.forma_prawna_typ_id")
-    @Expose
     private String krsPodmiotyFormaPrawnaTypId;
     @SerializedName("krs_podmioty.liczba_zmian_umow")
-    @Expose
     private String krsPodmiotyLiczbaZmianUmow;
     @SerializedName("krs_podmioty.siedziba")
-    @Expose
     private String krsPodmiotySiedziba;
     @SerializedName("krs_podmioty.wartosc_kapital_zakladowy")
-    @Expose
-    private Integer krsPodmiotyWartoscKapitalZakladowy;
+    private Double krsPodmiotyWartoscKapitalZakladowy;
     @SerializedName("krs_podmioty.rejestr_stowarzyszen")
-    @Expose
     private String krsPodmiotyRejestrStowarzyszen;
     @SerializedName("krs_podmioty.nazwa")
-    @Expose
     private String krsPodmiotyNazwa;
     @SerializedName("krs_podmioty.adres_kod_pocztowy")
-    @Expose
     private String krsPodmiotyAdresKodPocztowy;
     @SerializedName("krs_podmioty.empty")
-    @Expose
     private String krsPodmiotyEmpty;
     @SerializedName("krs_podmioty.nip")
-    @Expose
     private String krsPodmiotyNip;
     @SerializedName("krs_podmioty.liczba_prokurentow")
-    @Expose
     private String krsPodmiotyLiczbaProkurentow;
     @SerializedName("krs_podmioty.nieprzedsiebiorca")
-    @Expose
     private String krsPodmiotyNieprzedsiebiorca;
     @SerializedName("krs_podmioty.www")
-    @Expose
     private String krsPodmiotyWww;
     @SerializedName("krs_podmioty.forma_prawna_str")
-    @Expose
     private String krsPodmiotyFormaPrawnaStr;
     @SerializedName("krs_podmioty.nazwa_organu_reprezentacji")
-    @Expose
     private String krsPodmiotyNazwaOrganuReprezentacji;
     @SerializedName("krs_podmioty.wczesniejsza_rejestracja_str")
-    @Expose
     private String krsPodmiotyWczesniejszaRejestracjaStr;
     @SerializedName("krs_podmioty.adres")
-    @Expose
     private String krsPodmiotyAdres;
     @SerializedName("krs_podmioty.id")
-    @Expose
     private String krsPodmiotyId;
     @SerializedName("krs_podmioty.liczba_akcji_wszystkich_emisji")
-    @Expose
     private String krsPodmiotyLiczbaAkcjiWszystkichEmisji;
     @SerializedName("krs_podmioty.dotacje_ue_beneficjent_id")
-    @Expose
     private String krsPodmiotyDotacjeUeBeneficjentId;
     @SerializedName("krs_podmioty.person_id")
-    @Expose
     private List<String> krsPodmiotyPersonId = null;
     @SerializedName("krs_podmioty.liczba_emisji_akcji")
-    @Expose
     private String krsPodmiotyLiczbaEmisjiAkcji;
     @SerializedName("krs_podmioty.twitter_account_id")
-    @Expose
     private String krsPodmiotyTwitterAccountId;
     @SerializedName("krs_podmioty.data_dokonania_wpisu")
-    @Expose
     private String krsPodmiotyDataDokonaniaWpisu;
     @SerializedName("krs_podmioty.nazwa_organu_nadzoru")
-    @Expose
     private String krsPodmiotyNazwaOrganuNadzoru;
     @SerializedName("krs_podmioty.wartosc_czesc_kapitalu_wplaconego")
-    @Expose
     private Integer krsPodmiotyWartoscCzescKapitaluWplaconego;
     @SerializedName("krs_podmioty.rejestr")
-    @Expose
     private String krsPodmiotyRejestr;
     @SerializedName("krs_podmioty.wartosc_nominalna_podwyzszenia_kapitalu")
-    @Expose
     private Integer krsPodmiotyWartoscNominalnaPodwyzszeniaKapitalu;
     @SerializedName("krs_podmioty.data_rejestracji_przedsiebiorcy")
-    @Expose
     private String krsPodmiotyDataRejestracjiPrzedsiebiorcy;
     @SerializedName("krs_podmioty.firma")
-    @Expose
     private String krsPodmiotyFirma;
     @SerializedName("krs_podmioty.opp")
-    @Expose
     private String krsPodmiotyOpp;
     @SerializedName("krs_podmioty.liczba_dzialalnosci")
-    @Expose
     private String krsPodmiotyLiczbaDzialalnosci;
     @SerializedName("krs_podmioty.numer_wpisu")
-    @Expose
     private String krsPodmiotyNumerWpisu;
     @SerializedName("krs_podmioty.file_id")
-    @Expose
     private String krsPodmiotyFileId;
     @SerializedName("krs_podmioty.deleted_on_request")
-    @Expose
     private String krsPodmiotyDeletedOnRequest;
     @SerializedName("krs_podmioty.adres_ulica")
-    @Expose
     private String krsPodmiotyAdresUlica;
     @SerializedName("krs_podmioty.liczba_jedynych_akcjonariuszy")
-    @Expose
     private String krsPodmiotyLiczbaJedynychAkcjonariuszy;
     @SerializedName("krs_podmioty.data_rejestracji_stowarzyszenia")
-    @Expose
     private Object krsPodmiotyDataRejestracjiStowarzyszenia;
     @SerializedName("krs_podmioty.liczba_nadzorcow")
-    @Expose
     private String krsPodmiotyLiczbaNadzorcow;
     @SerializedName("krs_podmioty.sposob_reprezentacji")
-    @Expose
     private String krsPodmiotySposobReprezentacji;
     @SerializedName("krs_podmioty.wykreslony")
-    @Expose
     private String krsPodmiotyWykreslony;
     @SerializedName("krs_podmioty.gmina_id")
-    @Expose
     private String krsPodmiotyGminaId;
     @SerializedName("krs_podmioty.wojewodztwo_id")
-    @Expose
     private String krsPodmiotyWojewodztwoId;
     @SerializedName("krs_podmioty.liczba_zmian")
-    @Expose
     private String krsPodmiotyLiczbaZmian;
     @SerializedName("krs_podmioty.sygnatura_akt")
-    @Expose
     private String krsPodmiotySygnaturaAkt;
     @SerializedName("krs_podmioty.liczba_wspolnikow")
-    @Expose
     private String krsPodmiotyLiczbaWspolnikow;
     @SerializedName("krs_podmioty.cel_dzialania")
-    @Expose
     private Object krsPodmiotyCelDzialania;
     @SerializedName("krs_podmioty.nazwa_skrocona")
-    @Expose
     private String krsPodmiotyNazwaSkrocona;
     @SerializedName("krs_podmioty.data_ostatni_wpis")
-    @Expose
     private Object krsPodmiotyDataOstatniWpis;
     @SerializedName("krs_podmioty.liczba_reprezentantow")
-    @Expose
     private String krsPodmiotyLiczbaReprezentantow;
     @SerializedName("krs_podmioty.email")
-    @Expose
     private String krsPodmiotyEmail;
     @SerializedName("krs_podmioty.adres_poczta")
-    @Expose
     private String krsPodmiotyAdresPoczta;
     @SerializedName("krs_podmioty.kod_pocztowy_id")
-    @Expose
     private String krsPodmiotyKodPocztowyId;
     @SerializedName("krs_podmioty.data_wpisu_opp")
-    @Expose
     private Object krsPodmiotyDataWpisuOpp;
     @SerializedName("krs_podmioty.wartosc_kapital_docelowy")
-    @Expose
     private Integer krsPodmiotyWartoscKapitalDocelowy;
     @SerializedName("krs_podmioty.adres_numer")
-    @Expose
     private String krsPodmiotyAdresNumer;
     @SerializedName("krs_podmioty.powiat_id")
-    @Expose
     private String krsPodmiotyPowiatId;
     @SerializedName("krs_podmioty.adres_kraj")
-    @Expose
     private String krsPodmiotyAdresKraj;
     @SerializedName("krs_podmioty.wartosc_nominalna_akcji")
-    @Expose
     private Integer krsPodmiotyWartoscNominalnaAkcji;
     @SerializedName("krs_podmioty.gpw_spolka_id")
-    @Expose
     private String krsPodmiotyGpwSpolkaId;
     @SerializedName("krs_podmioty.miejscowosc_id")
-    @Expose
     private String krsPodmiotyMiejscowoscId;
     @SerializedName("krs_podmioty.knf_ostrzezenie_id")
-    @Expose
     private String krsPodmiotyKnfOstrzezenieId;
     @SerializedName("krs_podmioty.krs")
-    @Expose
     private String krsPodmiotyKrs;
     @SerializedName("krs_podmioty.data_zawieszenia_dzialanosci")
-    @Expose
     private Object krsPodmiotyDataZawieszeniaDzialanosci;
     @SerializedName("krs_podmioty.data_rejestracji")
-    @Expose
     private String krsPodmiotyDataRejestracji;
     @SerializedName("krs_podmioty.ostatni_wpis_id")
-    @Expose
     private String krsPodmiotyOstatniWpisId;
     @SerializedName("krs_podmioty.data_uprawomocnienia_wykreslenia")
-    @Expose
     private Object krsPodmiotyDataUprawomocnieniaWykreslenia;
     @SerializedName("krs_podmioty.forma_prawna_id")
-    @Expose
     private String krsPodmiotyFormaPrawnaId;
     @SerializedName("krs_podmioty.liczba_oddzialow")
-    @Expose
     private String krsPodmiotyLiczbaOddzialow;
     @SerializedName("krs_podmioty.data_wznowienia_dzialanosci")
-    @Expose
     private Object krsPodmiotyDataWznowieniaDzialanosci;
     @SerializedName("krs_podmioty.umowa_spolki_cywilnej")
-    @Expose
     private String krsPodmiotyUmowaSpolkiCywilnej;
     @SerializedName("krs_podmioty.oznaczenie_sadu")
-    @Expose
     private String krsPodmiotyOznaczenieSadu;
 
     public Object getKrsPodmiotyDataWyrejestrowaniaPrzedsiebiorcy() {
@@ -334,11 +252,11 @@ public class CompanyDTO {
         this.krsPodmiotySiedziba = krsPodmiotySiedziba;
     }
 
-    public Integer getKrsPodmiotyWartoscKapitalZakladowy() {
+    public Double getKrsPodmiotyWartoscKapitalZakladowy() {
         return krsPodmiotyWartoscKapitalZakladowy;
     }
 
-    public void setKrsPodmiotyWartoscKapitalZakladowy(Integer krsPodmiotyWartoscKapitalZakladowy) {
+    public void setKrsPodmiotyWartoscKapitalZakladowy(Double krsPodmiotyWartoscKapitalZakladowy) {
         this.krsPodmiotyWartoscKapitalZakladowy = krsPodmiotyWartoscKapitalZakladowy;
     }
 
@@ -877,5 +795,4 @@ public class CompanyDTO {
     public void setKrsPodmiotyOznaczenieSadu(String krsPodmiotyOznaczenieSadu) {
         this.krsPodmiotyOznaczenieSadu = krsPodmiotyOznaczenieSadu;
     }
-
 }

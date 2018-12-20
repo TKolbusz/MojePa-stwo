@@ -12,5 +12,4 @@ class LoadingViewHolder extends RecyclerView.ViewHolder {
     public LoadingViewHolder(@NonNull ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.loading_item, parent, false));
     }
-
 }

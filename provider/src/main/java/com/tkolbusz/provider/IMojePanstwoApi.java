@@ -1,5 +1,6 @@
 package com.tkolbusz.provider;
 
+import com.tkolbusz.provider.dto.DataObjectDTO;
 import com.tkolbusz.provider.dto.DataResponseDTO;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface IMojePanstwoApi {
     Call<DataResponseDTO> searchCompanies(@Query("conditions[q]") String searchQuery, @Query("page") int page, @Query("limit") int limit);
 
     @GET("/dane/krs_podmioty/{companyId}.json")
-    Call<DataResponseDTO> getCompanyById(@Path("companyId") int id, @Query("layers") List<String> layers);
+    Call<DataObjectDTO> getCompanyById(@Path("companyId") int id, @Query("layers[]") List<String> layers);
 }

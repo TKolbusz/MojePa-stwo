@@ -22,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:text="company xml"
         android:textColor="@color/primary"
         android:textSize="16sp"
-        android:text="company xml"
         android:textStyle="bold" />
 
     <TextView

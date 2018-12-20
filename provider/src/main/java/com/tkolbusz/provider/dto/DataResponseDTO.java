@@ -1,7 +1,5 @@
-
 package com.tkolbusz.provider.dto;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,16 +7,12 @@ import java.util.List;
 public class DataResponseDTO {
 
     @SerializedName("Dataobject")
-    @Expose
     private List<DataObjectDTO> dataObject;
     @SerializedName("Count")
-    @Expose
     private Integer count;
     @SerializedName("Took")
-    @Expose
     private Integer took;
     @SerializedName("Links")
-    @Expose
     private LinksDTO links;
 
     public List<DataObjectDTO> getDataObjectDTO() {

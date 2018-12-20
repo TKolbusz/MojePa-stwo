@@ -6,8 +6,11 @@ import com.tkolbusz.mojepastwo.di.ApplicationComponent;
 
 public interface IMainDisplay {
     void displayError(Throwable error);
+
     void displayError(String errorMessage);
+
     void displayToastMessage(String message);
+
     Context getContext();
 
     ApplicationComponent getComponent();
