@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tkolbusz.domain.model.Money;
 import com.tkolbusz.domain.model.Shareholder;
 import com.tkolbusz.mojepastwo.R;
 
@@ -24,21 +23,8 @@ class ShareholderViewHolder extends RecyclerView.ViewHolder {
 
     void bind(@NotNull Shareholder shareholder) {
         shareholderNameTextView.setText(shareholder.getFullName());
-        sharesInfoTextView.setText(formatShares(
-                shareholder.getShareCount(),
-                shareholder.getShareValuePerUnit(),
-                shareholder.getTotalShareValue()
-        ));
+        sharesInfoTextView.setText(shareholder.toString());
     }
 
-    private String formatShares(int count, Money unitPrice, Money totalValue) {
-        StringBuilder strb = new StringBuilder();
-        strb.append(totalValue.toString());
-        strb.append(" (");
-        strb.append(count);
-        strb.append(" x ");
-        strb.append(unitPrice.toString());
-        strb.append(")");
-        return strb.toString();
-    }
+
 }

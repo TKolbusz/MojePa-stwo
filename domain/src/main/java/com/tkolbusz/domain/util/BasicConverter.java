@@ -11,10 +11,12 @@ public abstract class BasicConverter<M, DTO> {
     public abstract M transform(@Nullable DTO DTO);
 
     @NotNull
-    public List<M> transform(@NotNull List<DTO> DTOs) {
+    public List<M> transform(@Nullable List<DTO> DTOs) {
         List<M> list = new ArrayList<>();
         if (DTOs != null) for (DTO dto : DTOs) {
-            list.add(transform(dto));
+            M model = transform(dto);
+            if (model != null)
+                list.add(model);
         }
         return list;
     }

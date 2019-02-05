@@ -13,6 +13,7 @@ class ShareholderConverter extends BasicConverter<Shareholder, ShareholderDTO> {
         if (DTO == null) {
             return null;
         }
+        if (DTO.getNazwa() == null || DTO.getUdzialyWartosc() == null) return null;
         return new Shareholder(
                 DTO.getNazwa(),
                 DTO.getUdzialyLiczba(),

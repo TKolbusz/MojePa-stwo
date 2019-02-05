@@ -1,14 +1,14 @@
 package com.tkolbusz.domain.model;
 
 public class Management extends Person {
-    private final Position position;
+    private final String position;
 
-    public Management(String fullName, Position position) {
+    public Management(String fullName, String position) {
         super(fullName);
         this.position = position;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 }
