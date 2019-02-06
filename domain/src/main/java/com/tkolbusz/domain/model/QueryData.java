@@ -1,6 +1,6 @@
-package com.tkolbusz.mojepanstwo.ui.search;
+package com.tkolbusz.domain.model;
 
-class QueryData {
+public class QueryData {
     private final String query;
     private final int pageToLoad;
 
@@ -9,11 +9,11 @@ class QueryData {
         this.pageToLoad = pageToLoad;
     }
 
-    static QueryData from(String query, int pageToLoad) {
+    public static QueryData from(String query, int pageToLoad) {
         return new QueryData(query, pageToLoad);
     }
 
-    static QueryData from(String query) {
+    public static QueryData from(String query) {
         return new QueryData(query, 0);
     }
 

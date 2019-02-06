@@ -14,6 +14,7 @@ import com.tkolbusz.domain.exception.ConnectionException;
 import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanySmall;
+import com.tkolbusz.domain.view.DetailContract;
 import com.tkolbusz.mojepanstwo.R;
 import com.tkolbusz.mojepanstwo.base.BaseView;
 import com.tkolbusz.mojepanstwo.base.IMainDisplay;
@@ -23,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 
 @SuppressWarnings("ViewConstructor")
-public class DetailView extends BaseView {
+public class DetailView extends BaseView implements DetailContract.View {
     private final DetailController controller;
     private final ViewGroup progressLayout;
 
@@ -93,22 +94,26 @@ public class DetailView extends BaseView {
         }
     }
 
-    void hideView() {
+    @Override
+    public void hideView() {
         getMainDisplay().dismiss();
     }
 
+    @Override
+    public
     void showLoading() {
-        // TODO: 12/20/18 layout shareholder nowa linia
         progressLayout.setVisibility(VISIBLE);
     }
 
+    @Override
+    public
     void hideLoading() {
-        // TODO: 12/20/18 fix progress bar
         progressLayout.setVisibility(GONE);
     }
 
 
-    void displayCompany(@NotNull Company company) {
+    @Override
+    public void displayCompany(@NotNull Company company) {
         appBarLayout.setExpanded(true);
         toolbar.setTitle(company.getName());
         typeTextView.setText(company.getType());
@@ -138,7 +143,8 @@ public class DetailView extends BaseView {
         shareholdersAdapter.setData(company.getShareholders());
     }
 
-    void clearView() {
+    @Override
+    public void clearView() {
         toolbar.setTitle("");
         taxIdNoTextView.setText("");
         regonTextView.setText("");

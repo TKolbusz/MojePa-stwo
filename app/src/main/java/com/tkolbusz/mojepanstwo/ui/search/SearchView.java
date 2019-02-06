@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tkolbusz.domain.exception.ConnectionException;
 import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.CompanySmall;
+import com.tkolbusz.domain.model.QueryData;
+import com.tkolbusz.domain.view.SearchContract;
 import com.tkolbusz.mojepanstwo.R;
 import com.tkolbusz.mojepanstwo.base.BaseView;
 import com.tkolbusz.mojepanstwo.base.IMainDisplay;
@@ -21,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @SuppressWarnings("ViewConstructor")
-public class SearchView extends BaseView {
+public class SearchView extends BaseView implements SearchContract.View {
     private final RecyclerView companiesListView;
     private final androidx.appcompat.widget.SearchView androidSearchView;
     private final Toolbar toolbar;
@@ -66,7 +68,8 @@ public class SearchView extends BaseView {
 
     }
 
-    void displayCompanies(List<CompanySmall> companies, int currentPage, boolean isLastPage) {
+    @Override
+    public void displayCompanies(List<CompanySmall> companies, int currentPage, boolean isLastPage) {
         // prevent weird scroll to new item
         Parcelable recyclerViewState = companiesListView.getLayoutManager().onSaveInstanceState();
         adapter.setData(companies, currentPage, isLastPage);
@@ -85,11 +88,13 @@ public class SearchView extends BaseView {
         }
     }
 
-    void displayCompanyDetailsView(CompanySmall company) {
+    @Override
+    public void displayCompanyDetailsView(CompanySmall company) {
         DetailView detailView = getMainDisplay().displayView(DetailView.class);
         detailView.setCompany(company);
     }
 
+    @Override
     public void setLoadingNextPageFailed() {
         adapter.setLoadAgain();
     }

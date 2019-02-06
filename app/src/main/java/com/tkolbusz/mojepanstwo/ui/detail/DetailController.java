@@ -3,13 +3,14 @@ package com.tkolbusz.mojepanstwo.ui.detail;
 import com.tkolbusz.domain.command.companies.GetCompanyDetails;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanySmall;
+import com.tkolbusz.domain.view.DetailContract;
 import com.tkolbusz.mojepanstwo.base.Controller;
 
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 
-public class DetailController extends Controller<DetailView> {
+public class DetailController extends Controller<DetailContract.View> implements DetailContract.Controller {
     private final GetCompanyDetails getCompanyDetailsCommand;
 
     @Inject
@@ -17,6 +18,7 @@ public class DetailController extends Controller<DetailView> {
         this.getCompanyDetailsCommand = getCompanyDetailsCommand;
     }
 
+    @Override
     public void onGetCompanyDetails(CompanySmall company) {
         DisposableObserver<Company> observer = getCompanyDetailsCommand.apply(new GetCompanyDetails.Params(company))
                 .subscribeWith(new DisposableObserver<Company>() {

@@ -3,7 +3,9 @@ package com.tkolbusz.mojepanstwo.ui.search;
 import com.tkolbusz.domain.command.companies.SearchCompanies;
 import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.domain.model.PaginationResult;
+import com.tkolbusz.domain.model.QueryData;
 import com.tkolbusz.domain.threading.IPostExecutionThread;
+import com.tkolbusz.domain.view.SearchContract;
 import com.tkolbusz.mojepanstwo.base.Controller;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 
-public class SearchController extends Controller<SearchView> {
+public class SearchController extends Controller<SearchContract.View> implements SearchContract.Controller {
     private final SearchCompanies searchCompaniesCommand;
     private final IPostExecutionThread postExecutionThread;
 
@@ -36,11 +38,13 @@ public class SearchController extends Controller<SearchView> {
         registerDisposable(createGetCompaniesStream());
     }
 
-    void onNewSearchQuery(QueryData query) {
+    @Override
+    public void onNewSearchQuery(QueryData query) {
         queryPublisher.onNext(query);
     }
 
-    void onLoadMoreData(QueryData queryData) {
+    @Override
+    public void onLoadMoreData(QueryData queryData) {
         nextPagePublisher.onNext(queryData);
     }
 
@@ -68,7 +72,8 @@ public class SearchController extends Controller<SearchView> {
                 });
     }
 
-    void onCompanySelected(CompanySmall companySmall) {
+    @Override
+    public void onCompanySelected(CompanySmall companySmall) {
         getView().displayCompanyDetailsView(companySmall);
     }
 
