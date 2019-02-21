@@ -5,6 +5,7 @@ import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.domain.model.PaginationResult;
 import com.tkolbusz.domain.model.QueryData;
 import com.tkolbusz.domain.threading.IPostExecutionThread;
+import com.tkolbusz.domain.threading.IThreadExecutor;
 import com.tkolbusz.domain.view.SearchContract;
 import com.tkolbusz.mojepanstwo.base.Controller;
 
@@ -13,22 +14,32 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 
+import static com.tkolbusz.mojepanstwo.di.ApplicationModule.DELAY_EXECUTOR;
+
 public class SearchController extends Controller<SearchContract.View> implements SearchContract.Controller {
+    static final int DEBOUNCE_TIME_MS = 200;
     private final SearchCompanies searchCompaniesCommand;
     private final IPostExecutionThread postExecutionThread;
+    private final IThreadExecutor delayExecutor;
 
     private final PublishSubject<QueryData> queryPublisher;
     private final PublishSubject<QueryData> nextPagePublisher;
 
     @Inject
-    public SearchController(SearchCompanies searchCompaniesCommand, IPostExecutionThread postExecutionThread) {
+    public SearchController(
+            SearchCompanies searchCompaniesCommand,
+            IPostExecutionThread postExecutionThread,
+            @Named(DELAY_EXECUTOR) IThreadExecutor delayExecutor
+    ) {
         this.searchCompaniesCommand = searchCompaniesCommand;
         this.postExecutionThread = postExecutionThread;
+        this.delayExecutor = delayExecutor;
         this.queryPublisher = PublishSubject.create();
         this.nextPagePublisher = PublishSubject.create();
     }
@@ -49,7 +60,7 @@ public class SearchController extends Controller<SearchContract.View> implements
     }
 
     private Disposable createGetCompaniesStream() {
-        return queryPublisher.debounce(200, TimeUnit.MILLISECONDS, postExecutionThread.getScheduler())
+        return queryPublisher.debounce(DEBOUNCE_TIME_MS, TimeUnit.MILLISECONDS, delayExecutor.getScheduler())
                 .mergeWith(nextPagePublisher)
                 .switchMap(queryData -> getCompanies(queryData))
                 .scan((previousResult, nextResult) -> {
