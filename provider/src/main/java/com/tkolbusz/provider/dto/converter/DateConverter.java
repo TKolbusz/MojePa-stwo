@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateMapper extends BasicConverter<Date, String> {
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
+public class DateConverter extends BasicConverter<Date, String> {
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     @Override
     public Date transform(String DTO) {

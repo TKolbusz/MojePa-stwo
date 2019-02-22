@@ -103,7 +103,8 @@ class SearchListAdapter extends RecyclerView.Adapter {
         List<CompanySmall> oldList = this.data;
         if (!isLastPage)
             newList.add(null);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BasicDiffer<>(oldList, newList));
+        BasicDiffer<CompanySmall, Integer> differ = new BasicDiffer<>(oldList, newList, CompanySmall::getExternalId);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(differ);
         this.data = newList;
         diffResult.dispatchUpdatesTo(this);
     }

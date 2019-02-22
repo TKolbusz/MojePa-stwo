@@ -53,4 +53,32 @@ public class Company extends CompanySmall {
     public String getTaxIdNo() {
         return taxIdNo;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Company company = (Company) o;
+
+        if (regon != null ? !regon.equals(company.regon) : company.regon != null) return false;
+        if (stock != null ? !stock.equals(company.stock) : company.stock != null) return false;
+        if (management != null ? !management.equals(company.management) : company.management != null)
+            return false;
+        if (shareholders != null ? !shareholders.equals(company.shareholders) : company.shareholders != null)
+            return false;
+        return taxIdNo != null ? taxIdNo.equals(company.taxIdNo) : company.taxIdNo == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (regon != null ? regon.hashCode() : 0);
+        result = 31 * result + (stock != null ? stock.hashCode() : 0);
+        result = 31 * result + (management != null ? management.hashCode() : 0);
+        result = 31 * result + (shareholders != null ? shareholders.hashCode() : 0);
+        result = 31 * result + (taxIdNo != null ? taxIdNo.hashCode() : 0);
+        return result;
+    }
 }

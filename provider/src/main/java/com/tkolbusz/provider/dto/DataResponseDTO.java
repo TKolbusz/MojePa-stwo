@@ -15,6 +15,10 @@ public class DataResponseDTO {
     @SerializedName("Links")
     private LinksDTO links;
 
+    public DataResponseDTO(List<DataObjectDTO> dataObject) {
+        this.dataObject = dataObject;
+    }
+
     public List<DataObjectDTO> getDataObjectDTO() {
         return dataObject;
     }

@@ -5,8 +5,6 @@ import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanyLayer;
 import com.tkolbusz.domain.model.CompanySmall;
-import com.tkolbusz.provider.dto.DataObjectDTO;
-import com.tkolbusz.provider.dto.DataResponseDTO;
 import com.tkolbusz.provider.dto.converter.CompanyConverter;
 import com.tkolbusz.provider.dto.converter.CompanySmallConverter;
 
@@ -14,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Single;
+import io.reactivex.functions.Function;
 import retrofit2.Response;
 
 class ProviderService implements IProviderService {
@@ -25,44 +25,37 @@ class ProviderService implements IProviderService {
 
 
     @Override
-    public List<CompanySmall> searchCompanies(String searchQuery, int page, int limit) throws ConnectionException, ProviderException {
-        try {
-            Response<DataResponseDTO> response = api.searchCompanies(searchQuery, page, limit).execute();
-            assertIsResponseSuccessful(response);
-            DataResponseDTO body = response.body();
-            return new CompanySmallConverter().transform(body.getDataObjectDTO());
-        } catch (IOException e) {
-            throw new ConnectionException();
-        }
+    public Single<List<CompanySmall>> searchCompanies(String searchQuery, int page, int limit) {
+        return api.searchCompanies(searchQuery, page, limit)
+                .doOnSuccess(this::assertIsResponseSuccessful)
+                .map(response -> new CompanySmallConverter().transform(response.body().getDataObjectDTO()))
+                .onErrorResumeNext(transformIOExceptionIntoConnectionException());
     }
 
     @Override
-    public Company getCompanyById(int id, List<CompanyLayer> layers) throws ConnectionException, ProviderException {
-        try {
-
+    public Single<Company> getCompanyById(int id, List<CompanyLayer> layers) {
+        return Single.fromCallable(() -> {
             List<String> layerStrings = new ArrayList<>(layers.size());
             for (CompanyLayer layer : layers) {
                 layerStrings.add(layer.getLayerName());
             }
-
-            Response<DataObjectDTO> response = api.getCompanyById(id, layerStrings).execute();
-
-            assertIsResponseSuccessful(response);
-
-            DataObjectDTO body = response.body();
-            if (body == null)
-                throw new ProviderException("Company with id " + id + " not found", 404);
-
-            return new CompanyConverter().transform(body);
-        } catch (IOException e) {
-            throw new ConnectionException();
-        }
+            return layerStrings;
+        })
+                .flatMap(layerStrings -> api.getCompanyById(id, layerStrings))
+                .doOnSuccess(this::assertIsResponseSuccessful)
+                .map(response -> new CompanyConverter().transform(response.body()))
+                .onErrorResumeNext(transformIOExceptionIntoConnectionException());
     }
 
     private void assertIsResponseSuccessful(Response response) throws ProviderException {
-        if (!response.isSuccessful()) {
+        if (!response.isSuccessful() || response.body() == null) {
             throw new ProviderException(response.message(), response.code());
         }
+    }
+
+    private <T> Function<Throwable, Single<T>> transformIOExceptionIntoConnectionException() {
+        // if error is IOException then transform it into ConnectionException
+        return error -> Single.error(error instanceof IOException ? new ConnectionException() : error);
     }
 
 

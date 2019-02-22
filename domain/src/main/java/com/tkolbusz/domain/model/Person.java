@@ -15,4 +15,19 @@ public class Person {
     public String toString() {
         return fullName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        return fullName != null ? fullName.equals(person.fullName) : person.fullName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return fullName != null ? fullName.hashCode() : 0;
+    }
 }

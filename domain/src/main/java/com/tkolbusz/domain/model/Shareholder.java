@@ -39,4 +39,28 @@ public class Shareholder extends Person {
         }
         return strb.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Shareholder that = (Shareholder) o;
+
+        if (shareCount != null ? !shareCount.equals(that.shareCount) : that.shareCount != null)
+            return false;
+        if (shareValuePerUnit != null ? !shareValuePerUnit.equals(that.shareValuePerUnit) : that.shareValuePerUnit != null)
+            return false;
+        return totalShareValue != null ? totalShareValue.equals(that.totalShareValue) : that.totalShareValue == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (shareCount != null ? shareCount.hashCode() : 0);
+        result = 31 * result + (shareValuePerUnit != null ? shareValuePerUnit.hashCode() : 0);
+        result = 31 * result + (totalShareValue != null ? totalShareValue.hashCode() : 0);
+        return result;
+    }
 }

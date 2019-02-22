@@ -164,6 +164,7 @@ public class CompanyDTO {
     @SerializedName("krs_podmioty.oznaczenie_sadu")
     private String krsPodmiotyOznaczenieSadu;
 
+
     public Object getKrsPodmiotyDataWyrejestrowaniaPrzedsiebiorcy() {
         return krsPodmiotyDataWyrejestrowaniaPrzedsiebiorcy;
     }

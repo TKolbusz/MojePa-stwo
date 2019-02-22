@@ -35,4 +35,22 @@ public class Money {
     public String toString() {
         return amount + " " + currency;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Money money = (Money) o;
+
+        if (amount != null ? !amount.equals(money.amount) : money.amount != null) return false;
+        return currency == money.currency;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = amount != null ? amount.hashCode() : 0;
+        result = 31 * result + (currency != null ? currency.hashCode() : 0);
+        return result;
+    }
 }

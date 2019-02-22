@@ -25,6 +25,10 @@ public class DataObjectDTO {
     @SerializedName("layers")
     private LayersDTO layers;
 
+    public DataObjectDTO(CompanyDTO data) {
+        this.data = data;
+    }
+
     public LayersDTO getLayers() {
         return layers;
     }
