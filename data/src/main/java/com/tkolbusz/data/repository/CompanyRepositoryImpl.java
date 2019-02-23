@@ -1,7 +1,5 @@
 package com.tkolbusz.data.repository;
 
-import com.tkolbusz.domain.exception.ConnectionException;
-import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanyLayer;
 import com.tkolbusz.domain.model.CompanySmall;
@@ -14,6 +12,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
+
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 import static com.tkolbusz.domain.Config.REST_PAGE_SIZE;
 
@@ -28,18 +29,20 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public List<CompanySmall> getCompanies(String query, int page) throws ConnectionException, ProviderException {
+    public Single<List<CompanySmall>> getCompanies(String query, int page) {
         return providerService.searchCompanies(query, page, REST_PAGE_SIZE);
     }
 
     @Override
-    public Company getCompanyById(int externalId) throws ConnectionException, ProviderException {
-        Company cachedCompany = companyDetailsCache.get(externalId);
-        if (cachedCompany != null) return cachedCompany;
-        else {
-            Company company = providerService.getCompanyById(externalId, Arrays.asList(CompanyLayer.REPRESENTATION, CompanyLayer.SHAREHOLDERS));
-            companyDetailsCache.put(externalId, company);
-            return company;
-        }
+    public Single<Company> getCompanyById(int externalId) {
+        Maybe<Company> cachedValue = Maybe.create(emitter -> {
+            Company cachedCompany = companyDetailsCache.get(externalId);
+            if (cachedCompany != null) emitter.onSuccess(cachedCompany);
+            emitter.onComplete();
+        });
+
+        Single<Company> downloadData = Single.defer(() -> providerService.getCompanyById(externalId, Arrays.asList(CompanyLayer.REPRESENTATION, CompanyLayer.SHAREHOLDERS)))
+                .doOnSuccess(company -> companyDetailsCache.put(externalId, company));
+        return cachedValue.switchIfEmpty(downloadData);
     }
 }

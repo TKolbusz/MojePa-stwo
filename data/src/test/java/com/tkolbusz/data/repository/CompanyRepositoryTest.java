@@ -1,7 +1,5 @@
 package com.tkolbusz.data.repository;
 
-import com.tkolbusz.domain.exception.ConnectionException;
-import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanyLayer;
 import com.tkolbusz.domain.model.CompanySmall;
@@ -17,7 +15,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import io.reactivex.Single;
+
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -32,25 +31,26 @@ public class CompanyRepositoryTest {
     IProviderService providerService;
 
     @Test
-    public void companyListIsDownloaded() throws ConnectionException, ProviderException {
+    public void companyListIsDownloaded() {
         CompanyRepositoryImpl repository = getInstance();
         CompanySmall small = new CompanySmall(1, "test", "test", null, "123", new Date());
         List<CompanySmall> list = Arrays.asList(small);
-        when(providerService.searchCompanies(anyString(), anyInt(), anyInt())).thenReturn(list);
-        List<CompanySmall> returnVal = repository.getCompanies("test", 1);
-        assertEquals(list, returnVal);
+        when(providerService.searchCompanies(anyString(), anyInt(), anyInt())).thenReturn(Single.just(list));
+        repository.getCompanies("test", 1)
+                .test()
+                .assertValue(resultList -> resultList.equals(list));
 
         verify(providerService).searchCompanies(eq("test"), eq(1), anyInt());
         verifyNoMoreInteractions(providerService);
     }
 
     @Test
-    public void gettingCompanyByIdIsCached() throws ConnectionException, ProviderException {
+    public void gettingCompanyByIdIsCached() {
         CompanyRepositoryImpl repository = getInstance();
         Company company = new Company(1, "test", "test", null, "123", null, null, null, null, null, null);
-        when(providerService.getCompanyById(anyInt(), ArgumentMatchers.<CompanyLayer>anyList())).thenReturn(company);
-        repository.getCompanyById(1);
-        repository.getCompanyById(1);
+        when(providerService.getCompanyById(anyInt(), ArgumentMatchers.<CompanyLayer>anyList())).thenReturn(Single.just(company));
+        repository.getCompanyById(1).subscribe();
+        repository.getCompanyById(1).subscribe();
 
         verify(providerService, times(1)).getCompanyById(anyInt(), ArgumentMatchers.<CompanyLayer>anyList());
 

@@ -1,19 +1,16 @@
 package com.tkolbusz.domain.command.companies;
 
-import com.tkolbusz.domain.Config;
 import com.tkolbusz.domain.command.Command;
 import com.tkolbusz.domain.command.CommandData;
-import com.tkolbusz.domain.exception.ConnectionException;
-import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.domain.model.PaginationResult;
 import com.tkolbusz.domain.repository.CompanyRepository;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+
+import static com.tkolbusz.domain.Config.REST_PAGE_SIZE;
 
 public class SearchCompanies extends Command<PaginationResult<CompanySmall>, SearchCompanies.Params> {
     private final CompanyRepository companyRepository;
@@ -30,15 +27,9 @@ public class SearchCompanies extends Command<PaginationResult<CompanySmall>, Sea
         int page = params.page;        // send empty list
         if (query == null || query.length() == 0)
             return Observable.just(PaginationResult.firstPage());
-        return Observable.create(emitter -> {
-            try {
-                List<CompanySmall> companies = companyRepository.getCompanies(query, page);
-                emitter.onNext(PaginationResult.from(companies, page + 1, companies.size() != Config.REST_PAGE_SIZE));
-                emitter.onComplete();
-            } catch (ConnectionException | ProviderException e) {
-                emitter.tryOnError(e);
-            }
-        });
+        return companyRepository.getCompanies(query, page)
+                .map(companies -> PaginationResult.from(companies, page + 1, companies.size() != REST_PAGE_SIZE))
+                .toObservable();
     }
 
     public static class Params {

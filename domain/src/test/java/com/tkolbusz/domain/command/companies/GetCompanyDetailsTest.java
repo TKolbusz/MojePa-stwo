@@ -2,8 +2,6 @@ package com.tkolbusz.domain.command.companies;
 
 import com.tkolbusz.domain.command.CommandData;
 import com.tkolbusz.domain.command.companies.GetCompanyDetails.Params;
-import com.tkolbusz.domain.exception.ConnectionException;
-import com.tkolbusz.domain.exception.ProviderException;
 import com.tkolbusz.domain.model.Company;
 import com.tkolbusz.domain.model.CompanySmall;
 import com.tkolbusz.domain.model.Currency;
@@ -18,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Collections;
 import java.util.Date;
 
+import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.ArgumentMatchers.eq;
@@ -30,9 +29,9 @@ public class GetCompanyDetailsTest {
     CompanyRepository companyRepository;
 
     @Test
-    public void repositoryCalledWithId() throws ConnectionException, ProviderException {
+    public void repositoryCalledWithId() {
         Company company = getTestCompany();
-        when(companyRepository.getCompanyById(eq(1))).thenReturn(company);
+        when(companyRepository.getCompanyById(eq(1))).thenReturn(Single.just(company));
         GetCompanyDetails getCompanyDetails = get();
         CompanySmall companySmall = new CompanySmall(1, null, null, null, null, null);
         getCompanyDetails.buildObservable(new Params(companySmall))

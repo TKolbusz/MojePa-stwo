@@ -22,7 +22,7 @@ public class GetCompanyDetails extends Command<Company, GetCompanyDetails.Params
     @Override
     protected Observable<Company> buildObservable(Params params) {
         CompanySmall company = params.company;
-        return Observable.fromCallable(() -> companyRepository.getCompanyById(company.getExternalId()));
+        return companyRepository.getCompanyById(company.getExternalId()).toObservable();
     }
 
     public static class Params {
