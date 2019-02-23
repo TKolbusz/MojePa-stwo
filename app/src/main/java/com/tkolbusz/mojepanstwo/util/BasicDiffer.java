@@ -32,7 +32,9 @@ public class BasicDiffer<T, C> extends DiffUtil.Callback {
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
         T old = oldList.get(oldItemPosition);
         T neww = newList.get(newItemPosition);
-        return neww == old || Objects.equals(comparator.apply(old), comparator.apply(neww));
+        if (neww == old) return true;
+        if (neww == null || old == null) return false;
+        return Objects.equals(comparator.apply(old), comparator.apply(neww));
     }
 
     @Override
